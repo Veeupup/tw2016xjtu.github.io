@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="TanPiPi">
 <meta property="og:description" content="​    这段时间在NUS，学习了关于计算机视觉的一些基础课程。选定的project是2D videogame，在此记录下关于利用webgl的2D游戏引擎制作过程和遇到的问题。游戏为Escape，源码在 github上，下面是对游戏引擎的机制的分析和记录，便于理清思路并以后复习。 引擎结构分析1234567891011121314151617├─Engine				│  ├─Cameras">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-30T19:11:45.459Z">
+<meta property="og:updated_time" content="2018-07-30T19:22:57.084Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于webgl的2D游戏引擎学习和游戏demo">
 <meta name="twitter:description" content="​    这段时间在NUS，学习了关于计算机视觉的一些基础课程。选定的project是2D videogame，在此记录下关于利用webgl的2D游戏引擎制作过程和遇到的问题。游戏为Escape，源码在 github上，下面是对游戏引擎的机制的分析和记录，便于理清思路并以后复习。 引擎结构分析1234567891011121314151617├─Engine				│  ├─Cameras">
@@ -331,7 +331,8 @@
       
         <p>​    这段时间在NUS，学习了关于计算机视觉的一些基础课程。选定的project是2D videogame，在此记录下关于利用webgl的2D游戏引擎制作过程和遇到的问题。游戏为<a href="https://veeupup.github.io/Escape" target="_blank" rel="noopener">Escape</a>，源码在 <a href="https://github.com/Veeupup/Escape" target="_blank" rel="noopener">github</a>上，下面是对游戏引擎的机制的分析和记录，便于理清思路并以后复习。</p>
 <h2 id="引擎结构分析"><a href="#引擎结构分析" class="headerlink" title="引擎结构分析"></a>引擎结构分析</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">├─Engine				</span><br><span class="line">│  ├─Cameras				相机类封装，决定截取viewport的那一部分</span><br><span class="line">│  ├─Core					引擎核心，包括游戏初始化，绘制，游戏循环等部分</span><br><span class="line">│  │  └─Resources			加载资源行为的封装</span><br><span class="line">│  ├─GameObjects			游戏对象的封装（默认为刚体）</span><br><span class="line">│  ├─Lights					渲染光源对象需要用到的光源	</span><br><span class="line">│  ├─Particles				游戏物件</span><br><span class="line">│  ├─Renderables			各种渲染类型的封装</span><br><span class="line">│  ├─RigidShapes			刚体类的定义</span><br><span class="line">│  ├─Shaders				和glsl文件进行交互的类</span><br><span class="line">│  ├─Shadows				阴影类，在有光源时使用</span><br><span class="line">│  └─Utils					各种</span><br><span class="line">├─GLSLShaders				glsl文件，着色语言</span><br><span class="line">├─lib						需要用到的数学库或者决定图形变化的库</span><br><span class="line">└─MyGame					游戏主文件夹</span><br><span class="line">    ├─Animation</span><br><span class="line">    └─Objects</span><br></pre></td></tr></table></figure>
-<p>​    在此只是对引擎的主要文件夹的作用进行简要说明，具体文件还需要看源码。</p>
+<p>​    在此只是对引擎的主要文件夹的作用进行简要说明，具体文件还需要看源码。下面为具体分析。</p>
+<a id="more"></a> 
 <h2 id="引擎工作原理"><a href="#引擎工作原理" class="headerlink" title="引擎工作原理"></a>引擎工作原理</h2><p>​    WebGL通过引入一个与可以在HTML5 的 canvas 元素中使用的OpenGL ES 2.0非常一致的API来实现这一点。 </p>
 <p>​    它工作的速度很快的一个原因是，将视频和图片等处理交给GPU来处理，从而大大提高渲染速度，而且优点是可以和其他html元素混杂在一起使用，大大增加webgl的实用性。</p>
 <h2 id="完整过程分析"><a href="#完整过程分析" class="headerlink" title="完整过程分析"></a>完整过程分析</h2><p>​    分析游戏引擎源码，这里举例记录一次基于游戏引擎完整的游戏场景的初始化到停止过程。这里举一个简单例子，主要是一整个场景的渲染流程，拿游戏的初始界面 Start.js 举例。</p>
