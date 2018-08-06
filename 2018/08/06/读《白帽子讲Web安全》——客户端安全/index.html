@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="TanPiPi">
 <meta property="og:description" content="​    最近在学习网络安全相关的知识，于是先从业内一本系统讲Web安全的书系统学习Web安全的相关知识。在此整理书中的知识层次，不求详尽，只求自己对整个Web安全梗概有所了解，另外记录下来以便以后温习。 ​    本书总共分为三篇，作者的安全世界观，客户端脚本的安全以及服务端应用的安全。这一篇博客记录的是客户端脚本安全的知识。 ​    ps：阅读本书时，发现作者是年西安交通大学少年班出身，在大">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-06T06:15:25.742Z">
+<meta property="og:updated_time" content="2018-08-06T06:21:08.461Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="读《白帽子讲Web安全》——客户端脚本安全">
 <meta name="twitter:description" content="​    最近在学习网络安全相关的知识，于是先从业内一本系统讲Web安全的书系统学习Web安全的相关知识。在此整理书中的知识层次，不求详尽，只求自己对整个Web安全梗概有所了解，另外记录下来以便以后温习。 ​    本书总共分为三篇，作者的安全世界观，客户端脚本的安全以及服务端应用的安全。这一篇博客记录的是客户端脚本安全的知识。 ​    ps：阅读本书时，发现作者是年西安交通大学少年班出身，在大">
@@ -366,7 +366,7 @@
 <li><h2 id="同源策略-Same-Origin-Policy"><a href="#同源策略-Same-Origin-Policy" class="headerlink" title="同源策略 Same Origin Policy"></a>同源策略 Same Origin Policy</h2><p><strong>源</strong>  浏览器为了不让浏览器的页面行为形成干扰，提出“源”。</p>
 <p>影响源的<strong>因素</strong>有：host、子域名、端口、协议</p>
 <p>对于当前页面来说，重要在加载JS的域</p>
-<p>在浏览器中 <script> <img> <iframe> <link> 标签跨域加载资源，实际发起一次GET请求，但不能读写返回的内容</p>
+<p>在浏览器中 script、 img 、iframe 、link、 标签跨域加载资源，实际发起一次GET请求，但不能读写返回的内容</p>
 <p>XMLHttpRequest受到同源策略影响</p>
 </li>
 <li><h2 id="浏览器沙箱"><a href="#浏览器沙箱" class="headerlink" title="浏览器沙箱"></a>浏览器沙箱</h2><p><strong>挂马</strong> 在网页中插入恶意代码，利用浏览器漏洞执行任意代码</p>
@@ -486,7 +486,7 @@
 </ul>
 <h1 id="HTML5安全"><a href="#HTML5安全" class="headerlink" title="HTML5安全"></a>HTML5安全</h1><ul>
 <li><h2 id="HTML5新标签"><a href="#HTML5新标签" class="headerlink" title="HTML5新标签"></a>HTML5新标签</h2><ul>
-<li>新标签的XSS ： <video>、<audio>等新标签的XSS攻击</li>
+<li>新标签的XSS ： <video>、<audio>等新标签的XSS攻击</audio></video></li>
 <li>iframe的sandbox： iframe新属性sandbox能够将iframe标签加载的内容视作一个独立的源，禁止执行脚本，表单禁止提交，插件禁止被加载，指向其他浏览对象的链接也会被禁止</li>
 <li>Link Types：noreferrer 浏览器请求该标签不再发送Referer，需要开发者手动添加</li>
 <li>Canvas的妙用：使用Canvas在线破解验证码</li>
@@ -499,7 +499,7 @@
 </ul>
 </li>
 </ul>
-</script></p></li></ul>
+
       
     </div>
     
@@ -678,7 +678,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#世界观安全"><span class="nav-number">1.</span> <span class="nav-text">世界观安全</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#浏览器安全"><span class="nav-number">2.</span> <span class="nav-text">浏览器安全</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#同源策略-Same-Origin-Policy"><span class="nav-number">2.1.</span> <span class="nav-text">同源策略 Same Origin Policy</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#世界观安全"><span class="nav-number">1.</span> <span class="nav-text">世界观安全</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#浏览器安全"><span class="nav-number">2.</span> <span class="nav-text">浏览器安全</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#同源策略-Same-Origin-Policy"><span class="nav-number">2.1.</span> <span class="nav-text">同源策略 Same Origin Policy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#浏览器沙箱"><span class="nav-number">2.2.</span> <span class="nav-text">浏览器沙箱</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#恶意网址拦截"><span class="nav-number">2.3.</span> <span class="nav-text">恶意网址拦截</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高速发展的浏览器安全"><span class="nav-number">2.4.</span> <span class="nav-text">高速发展的浏览器安全</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#跨站脚本攻击-（XSS）"><span class="nav-number">3.</span> <span class="nav-text">跨站脚本攻击 （XSS）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">3.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XSS攻击进阶"><span class="nav-number">3.2.</span> <span class="nav-text">XSS攻击进阶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XSS的防御"><span class="nav-number">3.3.</span> <span class="nav-text">XSS的防御</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#跨站点请求伪造（CSRF）"><span class="nav-number">4.</span> <span class="nav-text">跨站点请求伪造（CSRF）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CSRF简介"><span class="nav-number">4.1.</span> <span class="nav-text">CSRF简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSRF进阶"><span class="nav-number">4.2.</span> <span class="nav-text">CSRF进阶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSRF防御"><span class="nav-number">4.3.</span> <span class="nav-text">CSRF防御</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#点击劫持（Clickjacking）"><span class="nav-number">5.</span> <span class="nav-text">点击劫持（Clickjacking）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是点击劫持"><span class="nav-number">5.1.</span> <span class="nav-text">什么是点击劫持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Flash点击劫持"><span class="nav-number">5.2.</span> <span class="nav-text">Flash点击劫持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图片覆盖攻击"><span class="nav-number">5.3.</span> <span class="nav-text">图片覆盖攻击</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拖拽劫持与数据窃取"><span class="nav-number">5.4.</span> <span class="nav-text">拖拽劫持与数据窃取</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Clickjacking3-0触屏劫持"><span class="nav-number">5.4.1.</span> <span class="nav-text">Clickjacking3.0触屏劫持</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Clickjacking防御"><span class="nav-number">5.5.</span> <span class="nav-text">Clickjacking防御</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTML5安全"><span class="nav-number">6.</span> <span class="nav-text">HTML5安全</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML5新标签"><span class="nav-number">6.1.</span> <span class="nav-text">HTML5新标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他安全问题"><span class="nav-number">6.2.</span> <span class="nav-text">其他安全问题</span></a></li></ol></li></ol></div>
             
 
           </div>
