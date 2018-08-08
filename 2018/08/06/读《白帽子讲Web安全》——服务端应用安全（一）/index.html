@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="​    本书总共分为四篇，作者的安全世界观，客户端脚本的安全、服务端应用的安全以及以及互联网公司安全运营。 ​    这一篇博客记录的是服务端应用安全的知识， ​    承接自上一篇客户端安全之后，包括注入攻击、认证与会话管理和访问控制、访问控制、加密算法与随机数、Web框架安全、应用层拒绝服务攻击DDOS、Web Server安全等方面。">
+<meta name="description" content="​    本书总共分为三篇，作者的安全世界观，客户端脚本的安全以及服务端应用的安全。 ​    这一篇博客记录的是服务端应用安全的知识前半部分。 ​    承接自上一篇客户端安全之后。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="读《白帽子讲Web安全》——服务端应用安全">
-<meta property="og:url" content="http://yoursite.com/2018/08/06/读《白帽子讲Web安全》——服务端应用安全/index.html">
+<meta property="og:title" content="读《白帽子讲Web安全》——服务端应用安全（一）">
+<meta property="og:url" content="http://yoursite.com/2018/08/06/读《白帽子讲Web安全》——服务端应用安全（一）/index.html">
 <meta property="og:site_name" content="TanPiPi">
-<meta property="og:description" content="​    本书总共分为四篇，作者的安全世界观，客户端脚本的安全、服务端应用的安全以及以及互联网公司安全运营。 ​    这一篇博客记录的是服务端应用安全的知识， ​    承接自上一篇客户端安全之后，包括注入攻击、认证与会话管理和访问控制、访问控制、加密算法与随机数、Web框架安全、应用层拒绝服务攻击DDOS、Web Server安全等方面。">
+<meta property="og:description" content="​    本书总共分为三篇，作者的安全世界观，客户端脚本的安全以及服务端应用的安全。 ​    这一篇博客记录的是服务端应用安全的知识前半部分。 ​    承接自上一篇客户端安全之后。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-08T01:45:40.752Z">
+<meta property="og:updated_time" content="2018-08-06T11:39:10.325Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="读《白帽子讲Web安全》——服务端应用安全">
-<meta name="twitter:description" content="​    本书总共分为四篇，作者的安全世界观，客户端脚本的安全、服务端应用的安全以及以及互联网公司安全运营。 ​    这一篇博客记录的是服务端应用安全的知识， ​    承接自上一篇客户端安全之后，包括注入攻击、认证与会话管理和访问控制、访问控制、加密算法与随机数、Web框架安全、应用层拒绝服务攻击DDOS、Web Server安全等方面。">
+<meta name="twitter:title" content="读《白帽子讲Web安全》——服务端应用安全（一）">
+<meta name="twitter:description" content="​    本书总共分为三篇，作者的安全世界观，客户端脚本的安全以及服务端应用的安全。 ​    这一篇博客记录的是服务端应用安全的知识前半部分。 ​    承接自上一篇客户端安全之后。">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/08/06/读《白帽子讲Web安全》——服务端应用安全/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/06/读《白帽子讲Web安全》——服务端应用安全（一）/"/>
 
 
 
 
 
-  <title>读《白帽子讲Web安全》——服务端应用安全 | TanPiPi</title>
+  <title>读《白帽子讲Web安全》——服务端应用安全（一） | TanPiPi</title>
   
 
 
@@ -262,7 +262,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/读《白帽子讲Web安全》——服务端应用安全/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/读《白帽子讲Web安全》——服务端应用安全（一）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Vee">
@@ -279,7 +279,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">读《白帽子讲Web安全》——服务端应用安全</h1>
+          <h1 class="post-title" itemprop="name headline">读《白帽子讲Web安全》——服务端应用安全（一）</h1>
         
 
         <div class="post-meta">
@@ -329,9 +329,9 @@
       
 
       
-        <p>​    本书总共分为四篇，作者的安全世界观，客户端脚本的安全、服务端应用的安全以及以及互联网公司安全运营。</p>
-<p>​    这一篇博客记录的是<strong>服务端应用</strong>安全的知识，</p>
-<p>​    承接自上一篇客户端安全之后，包括<strong>注入攻击、认证与会话管理和访问控制、访问控制、加密算法与随机数、Web框架安全、应用层拒绝服务攻击DDOS、Web Server安全等方面</strong>。</p>
+        <p>​    本书总共分为三篇，作者的安全世界观，客户端脚本的安全以及服务端应用的安全。</p>
+<p>​    这一篇博客记录的是<strong>服务端应用</strong>安全的知识前半部分。</p>
+<p>​    承接自上一篇客户端安全之后。</p>
 <a id="more"></a>
 <h1 id="注入攻击"><a href="#注入攻击" class="headerlink" title="注入攻击"></a>注入攻击</h1><h1 id="由于应用违背了“数据与代码分离的原则”。两个条件：1-用户能控制数据的输入；2-代码拼凑了用户输入的数据。"><a href="#由于应用违背了“数据与代码分离的原则”。两个条件：1-用户能控制数据的输入；2-代码拼凑了用户输入的数据。" class="headerlink" title="由于应用违背了“数据与代码分离的原则”。两个条件：1.用户能控制数据的输入；2.代码拼凑了用户输入的数据。"></a>由于应用违背了“数据与代码分离的原则”。两个条件：1.用户能控制数据的输入；2.代码拼凑了用户输入的数据。</h1><h2 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h2><h3 id="盲注"><a href="#盲注" class="headerlink" title="盲注"></a>盲注</h3><p>​    在服务器没有错误回显的时候完成注入攻击。验证方法：构造简单的条件语句根据页面是否发生变化来判断SQL语句是否执行。</p>
 <h3 id="Timing-Attack"><a href="#Timing-Attack" class="headerlink" title="Timing Attack"></a>Timing Attack</h3><p>​    利用数据库中某些特殊的函数，可以有条件地造成延迟。</p>
@@ -422,129 +422,6 @@
 </ul>
 </li>
 <li><p><strong>SSO 单点登录</strong>： 用户登录一次就可以访问所有系统。将<strong>风险集中</strong>了。使用最多的是OpenID，使用URL进行用户认证，同时在验证成功后重定向回网站。</p>
-</li>
-</ul>
-<h1 id="访问控制"><a href="#访问控制" class="headerlink" title="访问控制"></a>访问控制</h1><ul>
-<li><p><strong>What Can I Do？</strong></p>
-<p><strong>授权问题</strong>： 权限控制，访问控制。某个主体对某个客体需要实施某种操作，而系统对这种操作的限制就是权限控制。网络请求收到防火墙ACL策略的限制。加上基于页面的访问控制可以解决页面未授权访问的问题。</p>
-</li>
-<li><p><strong>垂直权限管理</strong></p>
-<p><strong>RBAC</strong>（Role-Based Access Control）：基于角色的访问控制。采用最小权限原则。</p>
-</li>
-<li><p><strong>水平权限管理</strong></p>
-<p>同一种用户相互间的数据不能直接访问，即问题出在同一个角色上，至今仍然是一个难题。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eg：来伊份购物网站没有对用户进行权限控制，通过变化URL中的id参数即可查看对应id的个人</span><br></pre></td></tr></table></figure>
-<p>姓名、地址等隐私信息。</p>
-</li>
-<li><p><strong>OAuth简介</strong></p>
-<p>不提供用户名和密码的情况下，授权第三方应用访问Web资源的安全协议。OpenID解决认证问题，OAuth解决授权问题。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">有三个角色：</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>User:用户</p>
-</li>
-<li><p>Resource Owner:资源提供方，用户访问其他的网页应用需要资源提供方的数据支持</p>
-</li>
-<li><p>Client:消费方，用户正在访问的网页应用</p>
-</li>
-</ul>
-<p>过程步骤不赘述，理解。</p>
-<h1 id="加密算法与随机数"><a href="#加密算法与随机数" class="headerlink" title="加密算法与随机数"></a>加密算法与随机数</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>​    加密算法分为 <strong>分组加密算法</strong>和<strong>流密码加密算法</strong>。</p>
-<p>​     <strong>分组加密法</strong>： DES、3-DES、Blowfish、IDEA、AES等。</p>
-<p>​     <strong>流密码加密算法</strong>： RC4、ORYX、SEAL。</p>
-<p>​    根据攻击者可以获得的信息，可以分为：唯密文攻击、已知明文攻击、选择明文攻击、选择密文攻击。</p>
-<h2 id="Stream-Cipher-Attack"><a href="#Stream-Cipher-Attack" class="headerlink" title="Stream Cipher Attack"></a>Stream Cipher Attack</h2><p>​    流密码常用的一种加密算法，基于异或操作，每次都只操作一个字节，但是性能非常好。</p>
-<ul>
-<li><p><strong>Reused Key Attack</strong>:  使用同一个密钥加密多次，因为基于异或操作，所以只要知道四个数据只要知道三个就可以推导出剩下的一个了。</p>
-<p>E(A) = A xor C<br>E(B) = B xor C</p>
-<p>E(A) xor E(B) = A xor B;</p>
-</li>
-<li><p><strong>Bit-flipping Attack</strong>： 在密码学中，攻击者在不知道明文的情况下，通过改变密文，使得明文按其需要的方式发生改变的攻击方式。也就是当知道A、B的明文，A的密文时，就可以推导出B 的密文。</p>
-<p>解决Bit-flipping攻击，验证密文的完整性。</p>
-</li>
-<li><p><strong>弱随机IV问题</strong>： 在authcode()函数中，它默认使用了4字节的IV（就是函数中的keyc），使得破解难度增<br>大。但其实4字节的IV是很脆弱的，它不够随机，我们完全可以通过“暴力破解”的方式找到重复的IV。</p>
-</li>
-</ul>
-<h2 id="WEP破解"><a href="#WEP破解" class="headerlink" title="WEP破解"></a>WEP破解</h2><p>​    WEP是一种无线加密传输协议，破解了WEP的密钥，就可以连接Access Point。</p>
-<p>​    两个关键因素：</p>
-<ul>
-<li>初始化向量IV：明文发送，在较短时间内会出现重复，就可以利用Reused Key Attack。同时，找到相同的IV，就可以构造出相同的CRC-32校验值，可以成功实施Bit-flipping。</li>
-<li>对消息的CRC-32校验</li>
-</ul>
-<blockquote>
-<p>Security of the WEP algorithm 提出了破解WEP破解的理论。</p>
-</blockquote>
-<h2 id="ECB模式的缺陷"><a href="#ECB模式的缺陷" class="headerlink" title="ECB模式的缺陷"></a>ECB模式的缺陷</h2><p>​    分组独立加密，调换任意分组的密文，那么解密后的明文也是对调位置的。所以应该使用链式加密。</p>
-<h2 id="Padding-Oracle-Attack"><a href="#Padding-Oracle-Attack" class="headerlink" title="Padding Oracle Attack"></a>Padding Oracle Attack</h2><p>​    分组加密过程中，不够位数的用padding进行填充。Padding Oracle Attack的关键在于攻击者能够获知解密的结果是否符合padding。在实现和使用CBC模式的分组加密算法时，注意这一点即可。</p>
-<h2 id="密钥管理"><a href="#密钥管理" class="headerlink" title="密钥管理"></a>密钥管理</h2><blockquote>
-<p>密码学一个原则：密码系统的安全性应该依赖于密钥的复杂性，而不应该依赖于<br>算法的保密性。</p>
-</blockquote>
-<p>​    防止密钥从非正常的途径泄露。不要把私钥硬编码在代码中，应该采用公私钥管理或者改善密钥管理。密钥集中管理，降低系统对密钥的耦合性，也利于定期更换密钥。</p>
-<h2 id="伪随机数问题"><a href="#伪随机数问题" class="headerlink" title="伪随机数问题"></a>伪随机数问题</h2><p>​    伪随机数不够随机。</p>
-<ul>
-<li>时间戳不够随机，不能直接用做随机数的生成。</li>
-<li>破解伪随机数种子即可破解，eg：PHP的rand()函数，mt_rand()函数。</li>
-<li>采用安全的随机数算法，JAVA中的用java.security.SecureRandom等。</li>
-</ul>
-<h1 id="Web框架安全"><a href="#Web框架安全" class="headerlink" title="Web框架安全"></a>Web框架安全</h1><ul>
-<li><p><strong>MVC框架安全</strong></p>
-<p>现代开发中的MVC框架。从数据流入的方向看，数据先后经过了View层、Controller层、Model层，设计安全方案的时候要掌握住数据这个关键因素。在每一层解决相关的问题，不要把不属于该层的问题留给那一层。</p>
-</li>
-</ul>
-<p>模板引擎与XSS防御</p>
-<p>​    在View层解决XSS问题。在现在View层用模板引擎对页面进行渲染，模板引擎可能会提供一些编码方法</p>
-<p>​    eg：Django中auto-escape采用了htmlEncode()，从而可以保证安全，有时关闭则可能导致问题。</p>
-<ul>
-<li><p><strong>Web框架与CSRF防御</strong></p>
-<p>可以使用security token来解决CSRF攻击，对读写操作分开，对所有的“写操作”使用POST提交，同时，要保证security token的私密性，自动在POST中增加Token。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1.在Session中绑定Token。</span><br><span class="line"></span><br><span class="line">2.在form表单中自动添加token字段。</span><br><span class="line"></span><br><span class="line">3.在Ajax请求中自动添加token。</span><br><span class="line"></span><br><span class="line">4.在服务端对比POST中提交的Token和Session中绑定的Token是否一致。</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>HTTP Headers管理</strong></p>
-<p>在框架中，对HTTP头进行全局化的处理。eg：针对HTTP头的CSRF攻击。针对30X返回的HTTP Response的跳转——提供统一跳转函数（白名单）。</p>
-</li>
-<li><p><strong>数据持久层与SQL注入</strong></p>
-<p>使用ORM框架对防止SQL注入有好处。</p>
-</li>
-</ul>
-<h1 id="应用层拒绝服务攻击DDOS"><a href="#应用层拒绝服务攻击DDOS" class="headerlink" title="应用层拒绝服务攻击DDOS"></a>应用层拒绝服务攻击DDOS</h1><p>​     <strong>DDOS</strong>:分布式拒绝服务 ，将正常服务放大了若干倍，通过若干个网络节点同时发起攻击，以达规模效应。</p>
-<p>​    常见的DDOS攻击：SYN flood， UDP flood， ICMP flood。</p>
-<pre><code>在很多对抗DDOS的产品中，一般会综合使用各种算法，结合一些DDOS攻击的特征，对流
-</code></pre><p>量进行清洗。对抗DDOS的网络设备可以串联或者并联在网络出口处。</p>
-<h2 id="应用层DDOS"><a href="#应用层DDOS" class="headerlink" title="应用层DDOS"></a>应用层DDOS</h2><p>​    发生在应用层，TCP三次握手已经完成，连接已经建立，发起攻击的IP地址真实。这种攻击是对服务器性能的一种攻击，优化服务器性能的方法能够缓解这种攻击。</p>
-<ul>
-<li><strong>CC攻击</strong> ：对消耗资源较大的应用页面不断发起<strong>正常的请求</strong>，以达到消耗服务端资源的目的。</li>
-<li><strong>限制请求频率</strong>： 针对每个客户端做一个请求频率的限制。</li>
-</ul>
-<h2 id="验证码"><a href="#验证码" class="headerlink" title="验证码"></a>验证码</h2><p>​     <strong>CAPTCHA</strong>：全自动区别计算机和人类的图灵测试。</p>
-<p>​    可能漏洞： 1. 直接利用图像相关算法识别验证码  2.验证码消耗掉后SessionID未更新，导致使用原有的SessionID可以一直重复提交同一个验证码 3. 提前将所有的验证码图片生成好，以哈希过的字符串作为验证码<br>图片的文件名——采用枚举的方式即可破解。</p>
-<h2 id="防御应用层DDOS"><a href="#防御应用层DDOS" class="headerlink" title="防御应用层DDOS"></a>防御应用层DDOS</h2><p>​    验证码的核心是识别人与机器。一般情况下，判断HTTP头中的User-Agent字段来识别客户端。</p>
-<p>​    另外一种比较可信的办法是让客户端解析一段JS，并给出正确的运行结果，因为大部分自动化过程是直接构造HTTP包来完成的，并没有在浏览器环境中。</p>
-<p>​    Web Server也可以用来进行防御。</p>
-<h2 id="资源耗尽攻击"><a href="#资源耗尽攻击" class="headerlink" title="资源耗尽攻击"></a>资源耗尽攻击</h2><ul>
-<li><strong>Slow Loris攻击</strong>：以极低的速度向服务器发送HTTP请求，由于Web Server并发的连接数都有一定的上限，故最终导致所有连接都被恶意占用。</li>
-<li><strong>HTTP POST DOS</strong> : 原理是在发送HTTP POST包时，指定一个非常大的Content-Length值，然后以很低的速<br>度发包，比如10～100s发一个字节，保持住这个连接不断开。</li>
-<li><strong>Server Limit DOS</strong>：Cookie造成一种拒绝服务。Web Server对HTTP包头的大小都有长度限制，如果攻击者通过XSS攻击，恶意地往客户端写入了一个超长的Cookie，则该客户端在清空Cookie之前，将无法再访问该Cookie所在域的任何页面。</li>
-</ul>
-<h2 id="ReDOS正则引起的问题"><a href="#ReDOS正则引起的问题" class="headerlink" title="ReDOS正则引起的问题"></a>ReDOS正则引起的问题</h2><p>​    当正则表达式写得不好时，就有可能被恶意输入利用，消耗大量资源，从而造成DOS。这种攻击被称为Re-DOS。这是一种代码缺陷上的漏洞。</p>
-<p>​    eg： ^(a+)+$， 正常时候输入 aaaax 时，16条可能路径，但是输入 aaaaaaaaaaaaaaaaX 时，有65536条路径，极大增加正则引擎解析的速度，用户恶意构造输入的时候，有缺陷的正则表达式效率大大降低。</p>
-<h1 id="PHP安全"><a href="#PHP安全" class="headerlink" title="PHP安全"></a>PHP安全</h1><p>​    暂时跳过这个章节，等到具体去写POC的时候回过头来再看。</p>
-<h1 id="Web-Server安全"><a href="#Web-Server安全" class="headerlink" title="Web Server安全"></a>Web Server安全</h1><ul>
-<li><strong>Apache安全</strong>：1. Apache的Module模块最容易出现安全漏洞，所以要检车Module的安装情况<ol>
-<li>指定Apache进程以单独的用户身份运行，通常需要为Apache单独建立一个user/group；使用root身份运行是一个非常不好的习惯。</li>
-<li>Apache有一些配置参数可以优化服务器的性能，提高对抗DDOS的攻击的能力。</li>
-<li>保护好Apache log，攻击者入侵成功后，会修改清除log。</li>
-</ol>
-</li>
-<li><strong>Nginx安全</strong>：注意软件本身的安全，配置好参数。</li>
-<li><strong>jBoss远程命令执行</strong>：JMX-Console管理后台，提供给管理员很多强大的功能，也方便了黑客入侵。远程加载war包。</li>
-<li><strong>Tomcat远程命令执行</strong>：Tomcat manager后台容易出现漏洞。</li>
-</ul>
-<h1 id="互联网公司安全运营"><a href="#互联网公司安全运营" class="headerlink" title="互联网公司安全运营"></a>互联网公司安全运营</h1><p>​    此处对互联网公司安全了解为主，此处摘录一些重要观点，不做详细探讨了。</p>
-<ul>
-<li>安全是产品的一个特性。</li>
-<li>好的安全方案<ul>
-<li>良好的用户体验</li>
-<li>优秀的性能</li>
-</ul>
 </li>
 </ul>
 
@@ -722,7 +599,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#注入攻击"><span class="nav-number">1.</span> <span class="nav-text">注入攻击</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#由于应用违背了“数据与代码分离的原则”。两个条件：1-用户能控制数据的输入；2-代码拼凑了用户输入的数据。"><span class="nav-number">2.</span> <span class="nav-text">由于应用违背了“数据与代码分离的原则”。两个条件：1.用户能控制数据的输入；2.代码拼凑了用户输入的数据。</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL注入"><span class="nav-number">2.1.</span> <span class="nav-text">SQL注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#盲注"><span class="nav-number">2.1.1.</span> <span class="nav-text">盲注</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Timing-Attack"><span class="nav-number">2.1.2.</span> <span class="nav-text">Timing Attack</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库攻击技巧"><span class="nav-number">2.2.</span> <span class="nav-text">数据库攻击技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常见的攻击机巧"><span class="nav-number">2.2.1.</span> <span class="nav-text">常见的攻击机巧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令执行"><span class="nav-number">2.2.2.</span> <span class="nav-text">命令执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#攻击存储过程"><span class="nav-number">2.2.3.</span> <span class="nav-text">攻击存储过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编码问题"><span class="nav-number">2.2.4.</span> <span class="nav-text">编码问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL-Column-Truncation"><span class="nav-number">2.2.5.</span> <span class="nav-text">SQL Column Truncation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正确地防御SQL注入"><span class="nav-number">2.3.</span> <span class="nav-text">正确地防御SQL注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他注入攻击"><span class="nav-number">2.4.</span> <span class="nav-text">其他注入攻击</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件上传漏洞"><span class="nav-number">3.</span> <span class="nav-text">文件上传漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件上传漏洞概述"><span class="nav-number">3.1.</span> <span class="nav-text">文件上传漏洞概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#功能还是漏洞"><span class="nav-number">3.2.</span> <span class="nav-text">功能还是漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计安全的文件上传功能"><span class="nav-number">3.3.</span> <span class="nav-text">设计安全的文件上传功能</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#认证与会话管理"><span class="nav-number">4.</span> <span class="nav-text">认证与会话管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#访问控制"><span class="nav-number">5.</span> <span class="nav-text">访问控制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#加密算法与随机数"><span class="nav-number">6.</span> <span class="nav-text">加密算法与随机数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">6.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stream-Cipher-Attack"><span class="nav-number">6.2.</span> <span class="nav-text">Stream Cipher Attack</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WEP破解"><span class="nav-number">6.3.</span> <span class="nav-text">WEP破解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ECB模式的缺陷"><span class="nav-number">6.4.</span> <span class="nav-text">ECB模式的缺陷</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Padding-Oracle-Attack"><span class="nav-number">6.5.</span> <span class="nav-text">Padding Oracle Attack</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#密钥管理"><span class="nav-number">6.6.</span> <span class="nav-text">密钥管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#伪随机数问题"><span class="nav-number">6.7.</span> <span class="nav-text">伪随机数问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Web框架安全"><span class="nav-number">7.</span> <span class="nav-text">Web框架安全</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#应用层拒绝服务攻击DDOS"><span class="nav-number">8.</span> <span class="nav-text">应用层拒绝服务攻击DDOS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#应用层DDOS"><span class="nav-number">8.1.</span> <span class="nav-text">应用层DDOS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#验证码"><span class="nav-number">8.2.</span> <span class="nav-text">验证码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防御应用层DDOS"><span class="nav-number">8.3.</span> <span class="nav-text">防御应用层DDOS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资源耗尽攻击"><span class="nav-number">8.4.</span> <span class="nav-text">资源耗尽攻击</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ReDOS正则引起的问题"><span class="nav-number">8.5.</span> <span class="nav-text">ReDOS正则引起的问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP安全"><span class="nav-number">9.</span> <span class="nav-text">PHP安全</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Web-Server安全"><span class="nav-number">10.</span> <span class="nav-text">Web Server安全</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#互联网公司安全运营"><span class="nav-number">11.</span> <span class="nav-text">互联网公司安全运营</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#注入攻击"><span class="nav-number">1.</span> <span class="nav-text">注入攻击</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#由于应用违背了“数据与代码分离的原则”。两个条件：1-用户能控制数据的输入；2-代码拼凑了用户输入的数据。"><span class="nav-number">2.</span> <span class="nav-text">由于应用违背了“数据与代码分离的原则”。两个条件：1.用户能控制数据的输入；2.代码拼凑了用户输入的数据。</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL注入"><span class="nav-number">2.1.</span> <span class="nav-text">SQL注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#盲注"><span class="nav-number">2.1.1.</span> <span class="nav-text">盲注</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Timing-Attack"><span class="nav-number">2.1.2.</span> <span class="nav-text">Timing Attack</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库攻击技巧"><span class="nav-number">2.2.</span> <span class="nav-text">数据库攻击技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常见的攻击机巧"><span class="nav-number">2.2.1.</span> <span class="nav-text">常见的攻击机巧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令执行"><span class="nav-number">2.2.2.</span> <span class="nav-text">命令执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#攻击存储过程"><span class="nav-number">2.2.3.</span> <span class="nav-text">攻击存储过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编码问题"><span class="nav-number">2.2.4.</span> <span class="nav-text">编码问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL-Column-Truncation"><span class="nav-number">2.2.5.</span> <span class="nav-text">SQL Column Truncation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正确地防御SQL注入"><span class="nav-number">2.3.</span> <span class="nav-text">正确地防御SQL注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他注入攻击"><span class="nav-number">2.4.</span> <span class="nav-text">其他注入攻击</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件上传漏洞"><span class="nav-number">3.</span> <span class="nav-text">文件上传漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件上传漏洞概述"><span class="nav-number">3.1.</span> <span class="nav-text">文件上传漏洞概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#功能还是漏洞"><span class="nav-number">3.2.</span> <span class="nav-text">功能还是漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计安全的文件上传功能"><span class="nav-number">3.3.</span> <span class="nav-text">设计安全的文件上传功能</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#认证与会话管理"><span class="nav-number">4.</span> <span class="nav-text">认证与会话管理</span></a></li></ol></div>
             
 
           </div>
