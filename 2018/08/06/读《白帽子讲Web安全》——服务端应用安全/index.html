@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="​    本书总共分为四篇，作者的安全世界观，客户端脚本的安全、服务端应用的安全以及以及互联网公司安全运营。 ​    这一篇博客记录的是服务端应用安全的知识， ​    承接自上一篇客户端安全之后，包括注入攻击、认证与会话管理和访问控制、访问控制、加密算法与随机数、Web框架安全、应用层拒绝服务攻击DDOS、Web Server安全等方面。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="读《白帽子讲Web安全》——服务端应用安全">
+<meta property="og:url" content="http://yoursite.com/2018/08/06/读《白帽子讲Web安全》——服务端应用安全/index.html">
+<meta property="og:site_name" content="TanPiPi">
+<meta property="og:description" content="​    本书总共分为四篇，作者的安全世界观，客户端脚本的安全、服务端应用的安全以及以及互联网公司安全运营。 ​    这一篇博客记录的是服务端应用安全的知识， ​    承接自上一篇客户端安全之后，包括注入攻击、认证与会话管理和访问控制、访问控制、加密算法与随机数、Web框架安全、应用层拒绝服务攻击DDOS、Web Server安全等方面。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-26T11:19:22.354Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="读《白帽子讲Web安全》——服务端应用安全">
+<meta name="twitter:description" content="​    本书总共分为四篇，作者的安全世界观，客户端脚本的安全、服务端应用的安全以及以及互联网公司安全运营。 ​    这一篇博客记录的是服务端应用安全的知识， ​    承接自上一篇客户端安全之后，包括注入攻击、认证与会话管理和访问控制、访问控制、加密算法与随机数、Web框架安全、应用层拒绝服务攻击DDOS、Web Server安全等方面。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/06/读《白帽子讲Web安全》——服务端应用安全/"/>
+
+
+
+
+
+  <title>读《白帽子讲Web安全》——服务端应用安全 | TanPiPi</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f46ee4ca884dfdc5b2f5e8423ee52770";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/Veeupup"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">TanPiPi</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-something">
+          <a href="/something" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            有料
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/读《白帽子讲Web安全》——服务端应用安全/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Vee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/th.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TanPiPi">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">读《白帽子讲Web安全》——服务端应用安全</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-06T12:49:59+08:00">
+                2018-08-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/网络安全/" itemprop="url" rel="index">
+                    <span itemprop="name">网络安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/06/读《白帽子讲Web安全》——服务端应用安全/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/08/06/读《白帽子讲Web安全》——服务端应用安全/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>​    本书总共分为四篇，作者的安全世界观，客户端脚本的安全、服务端应用的安全以及以及互联网公司安全运营。</p>
+<p>​    这一篇博客记录的是<strong>服务端应用</strong>安全的知识，</p>
+<p>​    承接自上一篇客户端安全之后，包括<strong>注入攻击、认证与会话管理和访问控制、访问控制、加密算法与随机数、Web框架安全、应用层拒绝服务攻击DDOS、Web Server安全等方面</strong>。</p>
+<a id="more"></a>
+<h1 id="注入攻击"><a href="#注入攻击" class="headerlink" title="注入攻击"></a>注入攻击</h1><h1 id="由于应用违背了“数据与代码分离的原则”。两个条件：1-用户能控制数据的输入；2-代码拼凑了用户输入的数据。"><a href="#由于应用违背了“数据与代码分离的原则”。两个条件：1-用户能控制数据的输入；2-代码拼凑了用户输入的数据。" class="headerlink" title="由于应用违背了“数据与代码分离的原则”。两个条件：1.用户能控制数据的输入；2.代码拼凑了用户输入的数据。"></a>由于应用违背了“数据与代码分离的原则”。两个条件：1.用户能控制数据的输入；2.代码拼凑了用户输入的数据。</h1><h2 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h2><h3 id="盲注"><a href="#盲注" class="headerlink" title="盲注"></a>盲注</h3><p>​    在服务器没有错误回显的时候完成注入攻击。验证方法：构造简单的条件语句根据页面是否发生变化来判断SQL语句是否执行。</p>
+<h3 id="Timing-Attack"><a href="#Timing-Attack" class="headerlink" title="Timing Attack"></a>Timing Attack</h3><p>​    利用数据库中某些特殊的函数，可以有条件地造成延迟。</p>
+<p>​    例如在MySQL中，利用BENCHMARK()函数，可以让同一个函数执行若干次，使得返回的结果比平均时间要长，通过时间长短的变化，可以判断出注入语句是否执行成功。这是一种 <strong>边信道攻击</strong> 。</p>
+<p>​    eg：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1170 UNION SELECT IF(SUBSTRING(current,1,1) =</span><br><span class="line">CHAR(119),BENCHMARK(5000000,ENCODE(&apos;MSG&apos;,&apos;by</span><br><span class="line">5 seconds&apos;)),null) FROM (Select Database()</span><br><span class="line">as current) as tbl;</span><br></pre></td></tr></table></figure>
+<p>​    这段Payload判断库名的第一个字母是否为CHAR(119)，即小写的w。如果判断结果为真，<br>则会通过BENCHMARK()函数造成较长延时；如果不为真，则该语句将很快执行完。攻击者<br>遍历所有字母，直到将整个数据库名全部验证完成为止。</p>
+<p>​    此外，例如如此的手段还可以获得很多有关数据库的信息。</p>
+<h2 id="数据库攻击技巧"><a href="#数据库攻击技巧" class="headerlink" title="数据库攻击技巧"></a>数据库攻击技巧</h2><h3 id="常见的攻击机巧"><a href="#常见的攻击机巧" class="headerlink" title="常见的攻击机巧"></a>常见的攻击机巧</h3><p>​    SQL注入可以猜解数据库的版本。有自动化工具完成猜解username和password。。（猜解。。暴力），可以获取到当前用户的身份，从而进行进一步的文件操作，通过LOAD_FILE读出，然后INTODUMOFILE写入系统，最后通过LOAD DATA INFILE将文件导入表中。这种技巧可以导出Web-shell，为进一步攻击做好准备。</p>
+<blockquote>
+<p>​    自动化注入工具：sqlmap</p>
+</blockquote>
+<h3 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h3><p>​    在MySQL中，除了直接导出Web-shell间接执行命令之外，还可以利用UDF(USER-Defined-Functions)来执行命令。若当前用户是root，则可以直接获取到root权限。</p>
+<h3 id="攻击存储过程"><a href="#攻击存储过程" class="headerlink" title="攻击存储过程"></a>攻击存储过程</h3><p>​    存储过程为数据库提供了强大的功能，但必须用CALL或者EXECUTE执行。在注入过程中，存储过后才能为攻击者提供很大便利。例如MS SQL Server中，“xp_cmd-shell”执行系统命令。</p>
+<h3 id="编码问题"><a href="#编码问题" class="headerlink" title="编码问题"></a>编码问题</h3><p>​    注入攻击中常常用到的单引号和双引号等特殊字符。当数据集采用了“宽字符集”的时候，就会产生一些漏洞，比如几个编码代表一个字符，例如。</p>
+<p>​    0xbf27 or 1=1 经过转义之后 成为  经过转义后，会变成0xbf5c27（“\”的ASCII码为0x5c），但0xbf5c又是一个字符。故原有的转义字符 \  就会“吃掉”。</p>
+<p>​    统一设置为UTF-8是一个很好的办法，也就是，设置页面meta标签的charset属性。</p>
+<h3 id="SQL-Column-Truncation"><a href="#SQL-Column-Truncation" class="headerlink" title="SQL Column Truncation"></a>SQL Column Truncation</h3><p>​    MySQL数据库中，strict模式不开启会导致重复数据插入或其他非法数据插入，从而有可能获得越权访问。</p>
+<h2 id="正确地防御SQL注入"><a href="#正确地防御SQL注入" class="headerlink" title="正确地防御SQL注入"></a>正确地防御SQL注入</h2><ul>
+<li><p>找到所有SQL注入漏洞</p>
+</li>
+<li><p>修补这些漏洞</p>
+<p><strong>使用预编译语句</strong>：最佳方式是使用预编译语句，绑定变量，用户的输入无法改变语句的结构和语义。</p>
+<p><strong>使用存储过程</strong>：将SQL语句定义在数据库中，避免使用动态的SQL语句。</p>
+<p><strong>检查数据类型</strong>， <strong>使用安全函数</strong></p>
+<p>从数据库角度来说，应该使用最小权限原则。</p>
+</li>
+</ul>
+<h2 id="其他注入攻击"><a href="#其他注入攻击" class="headerlink" title="其他注入攻击"></a>其他注入攻击</h2><ul>
+<li><strong>XML注入</strong>：和HTML注入很相似</li>
+<li><strong>代码注入</strong>： 通过一些执行命令的函数间接执行命令，如eval(), system()</li>
+<li><strong>CRLF注入</strong>： 两个字符 \n \t 表示换行，注入换行符改变语义。eg：log日志文件的改写，注入HTTP头（Http Response Splitting），因为HTTP头是\n\t换行的，可能导致安全隐患，可形成XSS攻击。</li>
+</ul>
+<h1 id="文件上传漏洞"><a href="#文件上传漏洞" class="headerlink" title="文件上传漏洞"></a>文件上传漏洞</h1><h2 id="文件上传漏洞概述"><a href="#文件上传漏洞概述" class="headerlink" title="文件上传漏洞概述"></a>文件上传漏洞概述</h2><p>​    文件上传漏洞指用户上传了一个可执行的脚本文件，并通过这个脚本文件获得了执行服务器端命令的能力。</p>
+<p>​    常见安全漏洞</p>
+<ul>
+<li><p>上传文件是Web脚本语言</p>
+</li>
+<li><p>上传文件是Flash的策略稳健crossdo-main.xml，黑客可以控制Flash在这个域下面的行为</p>
+</li>
+<li><p>上传文件是病毒，木马文件，诱导用户或者管理员下载执行</p>
+</li>
+<li><p>上传文件是钓鱼图片或为包含了脚本的图片，用于钓鱼和欺诈</p>
+<p>形成条件：1.上传的文件能被Web容器解释执行。2.用户能从Web上访问这个文件。3.用户上传的文件并未被安全检查和格式化</p>
+<p>eg：开源富文本编辑器的文件上传功能。</p>
+<p><strong>绕过文件上传检查功能</strong>  ：</p>
+<p>1.攻击者手动修改上传过程中的POST包，添加%00字符，可以截断某些函数对文件名的判断。</p>
+<p>2.伪造一个合法的文件头，将真实的脚本文件放置在其后。</p>
+</li>
+</ul>
+<h2 id="功能还是漏洞"><a href="#功能还是漏洞" class="headerlink" title="功能还是漏洞"></a>功能还是漏洞</h2><ul>
+<li><strong>Apache文件解析问题</strong>： Apache对文件名的解析式从后往前解析的，直到遇到Apache认识的文件类型为止。定义在Apache的mime.types文件中。</li>
+<li><strong>IIS文件解析问题</strong>：1.  ；成为截断字符，如文件名是 evil.asp;xx.jpg 时，IIS 6 会将此文件解析为 evil.asp来执行。2. 处理文件夹拓展名出错，在/*.asp/文件夹的文件都当做asp来处理</li>
+<li><strong>PHP CGI路径解析问题</strong>： PHP在Nginx作为Web Server时，一般使用fastcgi作为脚本解释器，而fastcgi模式下，PHP获取环境变量的方式有关，若解析不了，则会路径向前一步寻求环境解析。</li>
+<li><strong>利用上传文件漏洞钓鱼</strong>： 从正常域名跳转到钓鱼网站，通过不同文件类型的解析，在域名上看上去仍然是可信任的域名，但是html文件通过*.html.jpg解析运行。</li>
+</ul>
+<h2 id="设计安全的文件上传功能"><a href="#设计安全的文件上传功能" class="headerlink" title="设计安全的文件上传功能"></a>设计安全的文件上传功能</h2><ul>
+<li>文件上传的目录设置为不可执行</li>
+<li>判断文件类型，使用白名单策略，不要使用黑名单策略</li>
+<li>使用随机数改写文件名和文件路径</li>
+<li>单独设置文件服务器的域名</li>
+</ul>
+<h1 id="认证与会话管理"><a href="#认证与会话管理" class="headerlink" title="认证与会话管理"></a>认证与会话管理</h1><ul>
+<li>“<strong>认证</strong>”和“授权”的概念，单因素认证与多因素认证</li>
+<li><strong>密码</strong>：最基础的认证手段。OWASP有推荐的最佳实践。</li>
+</ul>
+<blockquote>
+<p>OWASP：The Open Web Application Security Project (OWASP), an online community, produces freely-available articles, methodologies, documentation, tools, and technologies in the field of web application security.</p>
+</blockquote>
+<p>使用弱口令攻击比暴力破解有效得多。密码的保存不要明文保存，采用不可逆的加密算法或者是单项散列函数算法。</p>
+<ul>
+<li><p><strong>多因素认证</strong>：提高攻击门槛</p>
+</li>
+<li><p><strong>Session与认证</strong>：将Session ID加密后保存在Cookie中，Cookie收到浏览器同源策略保护，Session劫持就是Session ID在生命周期内被窃取，相当于账户失窃；如果Session ID 保存在Cookie中，则可以称作Cookie劫持。</p>
+<ul>
+<li>Session泄漏途径：XSS攻击、网络sniff以及本地木马窃取。</li>
+</ul>
+</li>
+<li><p><strong>Session Fixation攻击</strong>： 在用户登录网站的过程中，如果登录前后用户的Session ID没有发生变化，则会存在Session Fixation问题。</p>
+<ul>
+<li>具体攻击的过程是，用户X（攻击者）先获取到一个未经认证的SessionID，然后将这个SessionID<br>交给用户Y去认证，Y完成认证后，服务器并未更新此SessionID的值（注意是未改变<br>SessionID，而不是未改变Session），所以X可以直接凭借此SessionID登录进Y的账户。</li>
+</ul>
+</li>
+<li><p><strong>Session保持攻击</strong>： 用户长时间未活动或者用户点击退出后，服务器将销毁session，如果Session一直未失效，则会导致Session劫持攻击。</p>
+<p>有的网站访问量大，则服务端不维护Session，把Session放到Cookie中加密保存，发送时带上Cookie，利用Cookie的Expire标签控制Session的失效时间，这就可以通过XSS攻击客户端Cookie失效时间来劫持Session了。</p>
+<ul>
+<li>定期强制销毁Cookie，一个用户可以同时拥有几个Session的问题</li>
+</ul>
+</li>
+<li><p><strong>SSO 单点登录</strong>： 用户登录一次就可以访问所有系统。将<strong>风险集中</strong>了。使用最多的是OpenID，使用URL进行用户认证，同时在验证成功后重定向回网站。</p>
+</li>
+</ul>
+<h1 id="访问控制"><a href="#访问控制" class="headerlink" title="访问控制"></a>访问控制</h1><ul>
+<li><p><strong>What Can I Do？</strong></p>
+<p><strong>授权问题</strong>： 权限控制，访问控制。某个主体对某个客体需要实施某种操作，而系统对这种操作的限制就是权限控制。网络请求收到防火墙ACL策略的限制。加上基于页面的访问控制可以解决页面未授权访问的问题。</p>
+</li>
+<li><p><strong>垂直权限管理</strong></p>
+<p><strong>RBAC</strong>（Role-Based Access Control）：基于角色的访问控制。采用最小权限原则。</p>
+</li>
+<li><p><strong>水平权限管理</strong></p>
+<p>同一种用户相互间的数据不能直接访问，即问题出在同一个角色上，至今仍然是一个难题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eg：来伊份购物网站没有对用户进行权限控制，通过变化URL中的id参数即可查看对应id的个人</span><br></pre></td></tr></table></figure>
+<p>姓名、地址等隐私信息。</p>
+</li>
+<li><p><strong>OAuth简介</strong></p>
+<p>不提供用户名和密码的情况下，授权第三方应用访问Web资源的安全协议。OpenID解决认证问题，OAuth解决授权问题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">有三个角色：</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>User:用户</p>
+</li>
+<li><p>Resource Owner:资源提供方，用户访问其他的网页应用需要资源提供方的数据支持</p>
+</li>
+<li><p>Client:消费方，用户正在访问的网页应用</p>
+</li>
+</ul>
+<p>过程步骤不赘述，理解。</p>
+<h1 id="加密算法与随机数"><a href="#加密算法与随机数" class="headerlink" title="加密算法与随机数"></a>加密算法与随机数</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>​    加密算法分为 <strong>分组加密算法</strong>和<strong>流密码加密算法</strong>。</p>
+<p>​     <strong>分组加密法</strong>： DES、3-DES、Blowfish、IDEA、AES等。</p>
+<p>​     <strong>流密码加密算法</strong>： RC4、ORYX、SEAL。</p>
+<p>​    根据攻击者可以获得的信息，可以分为：唯密文攻击、已知明文攻击、选择明文攻击、选择密文攻击。</p>
+<h2 id="Stream-Cipher-Attack"><a href="#Stream-Cipher-Attack" class="headerlink" title="Stream Cipher Attack"></a>Stream Cipher Attack</h2><p>​    流密码常用的一种加密算法，基于异或操作，每次都只操作一个字节，但是性能非常好。</p>
+<ul>
+<li><p><strong>Reused Key Attack</strong>:  使用同一个密钥加密多次，因为基于异或操作，所以只要知道四个数据只要知道三个就可以推导出剩下的一个了。</p>
+<p>E(A) = A xor C<br>E(B) = B xor C</p>
+<p>E(A) xor E(B) = A xor B;</p>
+</li>
+<li><p><strong>Bit-flipping Attack</strong>： 在密码学中，攻击者在不知道明文的情况下，通过改变密文，使得明文按其需要的方式发生改变的攻击方式。也就是当知道A、B的明文，A的密文时，就可以推导出B 的密文。</p>
+<p>解决Bit-flipping攻击，验证密文的完整性。</p>
+</li>
+<li><p><strong>弱随机IV问题</strong>： 在authcode()函数中，它默认使用了4字节的IV（就是函数中的keyc），使得破解难度增<br>大。但其实4字节的IV是很脆弱的，它不够随机，我们完全可以通过“暴力破解”的方式找到重复的IV。</p>
+</li>
+</ul>
+<h2 id="WEP破解"><a href="#WEP破解" class="headerlink" title="WEP破解"></a>WEP破解</h2><p>​    WEP是一种无线加密传输协议，破解了WEP的密钥，就可以连接Access Point。</p>
+<p>​    两个关键因素：</p>
+<ul>
+<li>初始化向量IV：明文发送，在较短时间内会出现重复，就可以利用Reused Key Attack。同时，找到相同的IV，就可以构造出相同的CRC-32校验值，可以成功实施Bit-flipping。</li>
+<li>对消息的CRC-32校验</li>
+</ul>
+<blockquote>
+<p>Security of the WEP algorithm 提出了破解WEP破解的理论。</p>
+</blockquote>
+<h2 id="ECB模式的缺陷"><a href="#ECB模式的缺陷" class="headerlink" title="ECB模式的缺陷"></a>ECB模式的缺陷</h2><p>​    分组独立加密，调换任意分组的密文，那么解密后的明文也是对调位置的。所以应该使用链式加密。</p>
+<h2 id="Padding-Oracle-Attack"><a href="#Padding-Oracle-Attack" class="headerlink" title="Padding Oracle Attack"></a>Padding Oracle Attack</h2><p>​    分组加密过程中，不够位数的用padding进行填充。Padding Oracle Attack的关键在于攻击者能够获知解密的结果是否符合padding。在实现和使用CBC模式的分组加密算法时，注意这一点即可。</p>
+<h2 id="密钥管理"><a href="#密钥管理" class="headerlink" title="密钥管理"></a>密钥管理</h2><blockquote>
+<p>密码学一个原则：密码系统的安全性应该依赖于密钥的复杂性，而不应该依赖于<br>算法的保密性。</p>
+</blockquote>
+<p>​    防止密钥从非正常的途径泄露。不要把私钥硬编码在代码中，应该采用公私钥管理或者改善密钥管理。密钥集中管理，降低系统对密钥的耦合性，也利于定期更换密钥。</p>
+<h2 id="伪随机数问题"><a href="#伪随机数问题" class="headerlink" title="伪随机数问题"></a>伪随机数问题</h2><p>​    伪随机数不够随机。</p>
+<ul>
+<li>时间戳不够随机，不能直接用做随机数的生成。</li>
+<li>破解伪随机数种子即可破解，eg：PHP的rand()函数，mt_rand()函数。</li>
+<li>采用安全的随机数算法，JAVA中的用java.security.SecureRandom等。</li>
+</ul>
+<h1 id="Web框架安全"><a href="#Web框架安全" class="headerlink" title="Web框架安全"></a>Web框架安全</h1><ul>
+<li><p><strong>MVC框架安全</strong></p>
+<p>现代开发中的MVC框架。从数据流入的方向看，数据先后经过了View层、Controller层、Model层，设计安全方案的时候要掌握住数据这个关键因素。在每一层解决相关的问题，不要把不属于该层的问题留给那一层。</p>
+</li>
+</ul>
+<p>模板引擎与XSS防御</p>
+<p>​    在View层解决XSS问题。在现在View层用模板引擎对页面进行渲染，模板引擎可能会提供一些编码方法</p>
+<p>​    eg：Django中auto-escape采用了htmlEncode()，从而可以保证安全，有时关闭则可能导致问题。</p>
+<ul>
+<li><p><strong>Web框架与CSRF防御</strong></p>
+<p>可以使用security token来解决CSRF攻击，对读写操作分开，对所有的“写操作”使用POST提交，同时，要保证security token的私密性，自动在POST中增加Token。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1.在Session中绑定Token。</span><br><span class="line"></span><br><span class="line">2.在form表单中自动添加token字段。</span><br><span class="line"></span><br><span class="line">3.在Ajax请求中自动添加token。</span><br><span class="line"></span><br><span class="line">4.在服务端对比POST中提交的Token和Session中绑定的Token是否一致。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>HTTP Headers管理</strong></p>
+<p>在框架中，对HTTP头进行全局化的处理。eg：针对HTTP头的CSRF攻击。针对30X返回的HTTP Response的跳转——提供统一跳转函数（白名单）。</p>
+</li>
+<li><p><strong>数据持久层与SQL注入</strong></p>
+<p>使用ORM框架对防止SQL注入有好处。</p>
+</li>
+</ul>
+<h1 id="应用层拒绝服务攻击DDOS"><a href="#应用层拒绝服务攻击DDOS" class="headerlink" title="应用层拒绝服务攻击DDOS"></a>应用层拒绝服务攻击DDOS</h1><p>​     <strong>DDOS</strong>:分布式拒绝服务 ，将正常服务放大了若干倍，通过若干个网络节点同时发起攻击，以达规模效应。</p>
+<p>​    常见的DDOS攻击：SYN flood， UDP flood， ICMP flood。</p>
+<pre><code>在很多对抗DDOS的产品中，一般会综合使用各种算法，结合一些DDOS攻击的特征，对流
+</code></pre><p>量进行清洗。对抗DDOS的网络设备可以串联或者并联在网络出口处。</p>
+<h2 id="应用层DDOS"><a href="#应用层DDOS" class="headerlink" title="应用层DDOS"></a>应用层DDOS</h2><p>​    发生在应用层，TCP三次握手已经完成，连接已经建立，发起攻击的IP地址真实。这种攻击是对服务器性能的一种攻击，优化服务器性能的方法能够缓解这种攻击。</p>
+<ul>
+<li><strong>CC攻击</strong> ：对消耗资源较大的应用页面不断发起<strong>正常的请求</strong>，以达到消耗服务端资源的目的。</li>
+<li><strong>限制请求频率</strong>： 针对每个客户端做一个请求频率的限制。</li>
+</ul>
+<h2 id="验证码"><a href="#验证码" class="headerlink" title="验证码"></a>验证码</h2><p>​     <strong>CAPTCHA</strong>：全自动区别计算机和人类的图灵测试。</p>
+<p>​    可能漏洞： 1. 直接利用图像相关算法识别验证码  2.验证码消耗掉后SessionID未更新，导致使用原有的SessionID可以一直重复提交同一个验证码 3. 提前将所有的验证码图片生成好，以哈希过的字符串作为验证码<br>图片的文件名——采用枚举的方式即可破解。</p>
+<h2 id="防御应用层DDOS"><a href="#防御应用层DDOS" class="headerlink" title="防御应用层DDOS"></a>防御应用层DDOS</h2><p>​    验证码的核心是识别人与机器。一般情况下，判断HTTP头中的User-Agent字段来识别客户端。</p>
+<p>​    另外一种比较可信的办法是让客户端解析一段JS，并给出正确的运行结果，因为大部分自动化过程是直接构造HTTP包来完成的，并没有在浏览器环境中。</p>
+<p>​    Web Server也可以用来进行防御。</p>
+<h2 id="资源耗尽攻击"><a href="#资源耗尽攻击" class="headerlink" title="资源耗尽攻击"></a>资源耗尽攻击</h2><ul>
+<li><strong>Slow Loris攻击</strong>：以极低的速度向服务器发送HTTP请求，由于Web Server并发的连接数都有一定的上限，故最终导致所有连接都被恶意占用。</li>
+<li><strong>HTTP POST DOS</strong> : 原理是在发送HTTP POST包时，指定一个非常大的Content-Length值，然后以很低的速<br>度发包，比如10～100s发一个字节，保持住这个连接不断开。</li>
+<li><strong>Server Limit DOS</strong>：Cookie造成一种拒绝服务。Web Server对HTTP包头的大小都有长度限制，如果攻击者通过XSS攻击，恶意地往客户端写入了一个超长的Cookie，则该客户端在清空Cookie之前，将无法再访问该Cookie所在域的任何页面。</li>
+</ul>
+<h2 id="ReDOS正则引起的问题"><a href="#ReDOS正则引起的问题" class="headerlink" title="ReDOS正则引起的问题"></a>ReDOS正则引起的问题</h2><p>​    当正则表达式写得不好时，就有可能被恶意输入利用，消耗大量资源，从而造成DOS。这种攻击被称为Re-DOS。这是一种代码缺陷上的漏洞。</p>
+<p>​    eg： ^(a+)+$， 正常时候输入 aaaax 时，16条可能路径，但是输入 aaaaaaaaaaaaaaaaX 时，有65536条路径，极大增加正则引擎解析的速度，用户恶意构造输入的时候，有缺陷的正则表达式效率大大降低。</p>
+<h1 id="PHP安全"><a href="#PHP安全" class="headerlink" title="PHP安全"></a>PHP安全</h1><p>​    暂时跳过这个章节，等到具体去写POC的时候回过头来再看。</p>
+<h1 id="Web-Server安全"><a href="#Web-Server安全" class="headerlink" title="Web Server安全"></a>Web Server安全</h1><ul>
+<li><strong>Apache安全</strong>：1. Apache的Module模块最容易出现安全漏洞，所以要检车Module的安装情况<ol>
+<li>指定Apache进程以单独的用户身份运行，通常需要为Apache单独建立一个user/group；使用root身份运行是一个非常不好的习惯。</li>
+<li>Apache有一些配置参数可以优化服务器的性能，提高对抗DDOS的攻击的能力。</li>
+<li>保护好Apache log，攻击者入侵成功后，会修改清除log。</li>
+</ol>
+</li>
+<li><strong>Nginx安全</strong>：注意软件本身的安全，配置好参数。</li>
+<li><strong>jBoss远程命令执行</strong>：JMX-Console管理后台，提供给管理员很多强大的功能，也方便了黑客入侵。远程加载war包。</li>
+<li><strong>Tomcat远程命令执行</strong>：Tomcat manager后台容易出现漏洞。</li>
+</ul>
+<h1 id="互联网公司安全运营"><a href="#互联网公司安全运营" class="headerlink" title="互联网公司安全运营"></a>互联网公司安全运营</h1><p>​    此处对互联网公司安全了解为主，此处摘录一些重要观点，不做详细探讨了。</p>
+<ul>
+<li>安全是产品的一个特性。</li>
+<li>好的安全方案<ul>
+<li>良好的用户体验</li>
+<li>优秀的性能</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/06/读《白帽子讲Web安全》——客户端安全/" rel="next" title="读《白帽子讲Web安全》——客户端脚本安全">
+                <i class="fa fa-chevron-left"></i> 读《白帽子讲Web安全》——客户端脚本安全
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/30/座位管理系统渗透/" rel="prev" title="座位管理系统渗透">
+                座位管理系统渗透 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/th.jpg"
+                alt="Vee" />
+            
+              <p class="site-author-name" itemprop="name">Vee</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Veeupup" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:code@tanweime.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#注入攻击"><span class="nav-number">1.</span> <span class="nav-text">注入攻击</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#由于应用违背了“数据与代码分离的原则”。两个条件：1-用户能控制数据的输入；2-代码拼凑了用户输入的数据。"><span class="nav-number">2.</span> <span class="nav-text">由于应用违背了“数据与代码分离的原则”。两个条件：1.用户能控制数据的输入；2.代码拼凑了用户输入的数据。</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL注入"><span class="nav-number">2.1.</span> <span class="nav-text">SQL注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#盲注"><span class="nav-number">2.1.1.</span> <span class="nav-text">盲注</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Timing-Attack"><span class="nav-number">2.1.2.</span> <span class="nav-text">Timing Attack</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库攻击技巧"><span class="nav-number">2.2.</span> <span class="nav-text">数据库攻击技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常见的攻击机巧"><span class="nav-number">2.2.1.</span> <span class="nav-text">常见的攻击机巧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令执行"><span class="nav-number">2.2.2.</span> <span class="nav-text">命令执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#攻击存储过程"><span class="nav-number">2.2.3.</span> <span class="nav-text">攻击存储过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编码问题"><span class="nav-number">2.2.4.</span> <span class="nav-text">编码问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL-Column-Truncation"><span class="nav-number">2.2.5.</span> <span class="nav-text">SQL Column Truncation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正确地防御SQL注入"><span class="nav-number">2.3.</span> <span class="nav-text">正确地防御SQL注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他注入攻击"><span class="nav-number">2.4.</span> <span class="nav-text">其他注入攻击</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件上传漏洞"><span class="nav-number">3.</span> <span class="nav-text">文件上传漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件上传漏洞概述"><span class="nav-number">3.1.</span> <span class="nav-text">文件上传漏洞概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#功能还是漏洞"><span class="nav-number">3.2.</span> <span class="nav-text">功能还是漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计安全的文件上传功能"><span class="nav-number">3.3.</span> <span class="nav-text">设计安全的文件上传功能</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#认证与会话管理"><span class="nav-number">4.</span> <span class="nav-text">认证与会话管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#访问控制"><span class="nav-number">5.</span> <span class="nav-text">访问控制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#加密算法与随机数"><span class="nav-number">6.</span> <span class="nav-text">加密算法与随机数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">6.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stream-Cipher-Attack"><span class="nav-number">6.2.</span> <span class="nav-text">Stream Cipher Attack</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WEP破解"><span class="nav-number">6.3.</span> <span class="nav-text">WEP破解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ECB模式的缺陷"><span class="nav-number">6.4.</span> <span class="nav-text">ECB模式的缺陷</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Padding-Oracle-Attack"><span class="nav-number">6.5.</span> <span class="nav-text">Padding Oracle Attack</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#密钥管理"><span class="nav-number">6.6.</span> <span class="nav-text">密钥管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#伪随机数问题"><span class="nav-number">6.7.</span> <span class="nav-text">伪随机数问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Web框架安全"><span class="nav-number">7.</span> <span class="nav-text">Web框架安全</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#应用层拒绝服务攻击DDOS"><span class="nav-number">8.</span> <span class="nav-text">应用层拒绝服务攻击DDOS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#应用层DDOS"><span class="nav-number">8.1.</span> <span class="nav-text">应用层DDOS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#验证码"><span class="nav-number">8.2.</span> <span class="nav-text">验证码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防御应用层DDOS"><span class="nav-number">8.3.</span> <span class="nav-text">防御应用层DDOS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资源耗尽攻击"><span class="nav-number">8.4.</span> <span class="nav-text">资源耗尽攻击</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ReDOS正则引起的问题"><span class="nav-number">8.5.</span> <span class="nav-text">ReDOS正则引起的问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP安全"><span class="nav-number">9.</span> <span class="nav-text">PHP安全</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Web-Server安全"><span class="nav-number">10.</span> <span class="nav-text">Web Server安全</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#互联网公司安全运营"><span class="nav-number">11.</span> <span class="nav-text">互联网公司安全运营</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Vee</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info"><a class="theme-link" target="_blank" >欢迎交流，邮箱：code@tanweime.com</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '2EvuE7DR5VjPBEUMI61zxkem-gzGzoHsz',
+        appKey: '4fm1qgkOW3HrhDRfoQEdE3sx',
+        placeholder: '来快活鸭~',
+        avatar:'/source/images/th.jpg',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<script type="text/javascript" src="/js/src/love.js"></script>

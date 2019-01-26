@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hadoop," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="12HDFS的学习笔记以及实践记录。多学习官网文档。 http://hadoop.apache.org">
+<meta name="keywords" content="Hadoop">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分布式文件系统HDFS">
+<meta property="og:url" content="http://yoursite.com/2019/01/20/分布式文件系统HDFS/index.html">
+<meta property="og:site_name" content="TanPiPi">
+<meta property="og:description" content="12HDFS的学习笔记以及实践记录。多学习官网文档。 http://hadoop.apache.org">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/9d82e933ly1fzd275cin3j20oa0gsjs7.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/9d82e933ly1fzd2xhhjmxj20oa0ewaal.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/9d82e933ly1fzd35g6o75j20dc0a3acc.jpg">
+<meta property="og:updated_time" content="2019-01-26T11:19:22.351Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="分布式文件系统HDFS">
+<meta name="twitter:description" content="12HDFS的学习笔记以及实践记录。多学习官网文档。 http://hadoop.apache.org">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/9d82e933ly1fzd275cin3j20oa0gsjs7.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/01/20/分布式文件系统HDFS/"/>
+
+
+
+
+
+  <title>分布式文件系统HDFS | TanPiPi</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f46ee4ca884dfdc5b2f5e8423ee52770";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/Veeupup"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">TanPiPi</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-something">
+          <a href="/something" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            有料
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/20/分布式文件系统HDFS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Vee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/th.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TanPiPi">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">分布式文件系统HDFS</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-20T14:10:34+08:00">
+                2019-01-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/大数据/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/01/20/分布式文件系统HDFS/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/01/20/分布式文件系统HDFS/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HDFS的学习笔记以及实践记录。</span><br><span class="line">多学习官网文档。</span><br></pre></td></tr></table></figure>
+<p><a href="http://hadoop.apache.org" target="_blank" rel="noopener">http://hadoop.apache.org</a></p>
+<a id="more"></a>
+<h1 id="HDFS概述及设计目标"><a href="#HDFS概述及设计目标" class="headerlink" title="HDFS概述及设计目标"></a>HDFS概述及设计目标</h1><h2 id="什么是HDFS"><a href="#什么是HDFS" class="headerlink" title="什么是HDFS"></a>什么是HDFS</h2><ul>
+<li>Hadoop实现了一个分布式文件系统（Hadoop Distributed File System），简称HDFS</li>
+<li>源自Google的GFS论文</li>
+</ul>
+<p>（Spark也是根据Google的一篇论文的实现）</p>
+<ul>
+<li>论文发表于2003年，HDFS是GFS的克隆版</li>
+</ul>
+<h2 id="设计目标"><a href="#设计目标" class="headerlink" title="设计目标"></a>设计目标</h2><ul>
+<li>非常巨大的分布式文件系统</li>
+<li>运行在普通廉价的硬件上</li>
+<li>易拓展、为用户提供性能不错的文件存储服务</li>
+</ul>
+<h1 id="HDFS架构"><a href="#HDFS架构" class="headerlink" title="HDFS架构"></a>HDFS架构</h1><p>官网架构图, 建议看官网原文。</p>
+<blockquote>
+<p>HDFS has a master/slave architecture. An HDFS cluster consists of a single NameNode, a master server that manages the file system namespace and regulates access to files by clients. In addition, there are a number of DataNodes, usually one per node in the cluster, which manage storage attached to the nodes that they run on. HDFS exposes a file system namespace and allows user data to be stored in files. Internally, a file is split into one or more blocks and these blocks are stored in a set of DataNodes. The NameNode executes file system namespace operations like opening, closing, and renaming files and directories. It also determines the mapping of blocks to DataNodes. The DataNodes are responsible for serving read and write requests from the file system’s clients. The DataNodes also perform block creation, deletion, and replication upon instruction from the NameNode.</p>
+</blockquote>
+<p><img src="http://ww1.sinaimg.cn/large/9d82e933ly1fzd275cin3j20oa0gsjs7.jpg" alt=""></p>
+<p>架构：</p>
+<ul>
+<li>1 <strong>Master</strong>（NameNode/NN） 带 N个<strong>Slaves</strong> (DataNode/DN)</li>
+</ul>
+<p>​    HDFS/YARN/HBase</p>
+<ul>
+<li><p>一个文件被拆分成多个Block</p>
+<p>blocksize：128M， ex：130M =》 128M + 2M</p>
+<p>这些block被存放到一系列DN中</p>
+</li>
+<li><p>NN：</p>
+<ul>
+<li>负责客户端请求的响应</li>
+<li>负责元数据（文件的名称、副本系数、Block存放的CDN）的响应</li>
+</ul>
+</li>
+<li><p>DN：</p>
+<ul>
+<li>存储用户的文件对应的数据块（Block）</li>
+<li>要定期向NN发送心跳信息，汇报本身及其所有的block信息，健康状况</li>
+</ul>
+</li>
+<li><p>Client</p>
+<ul>
+<li>客户端存放HDFS shell ， JAVA API 的程序等</li>
+</ul>
+</li>
+<li><p>运行在廉价的机器上（通常Linux系统，开发使用Java语言），部署广泛</p>
+<blockquote>
+<p>A typical deployment has a dedicated machine that runs only the NameNode software. Each of the other machines in the cluster runs one instance of the DataNode software. The architecture does not preclude running multiple DataNodes on the same machine but in a real deployment that is rarely the case.</p>
+</blockquote>
+</li>
+<li><p>一个集群中一台机器仅仅运行一个NN节点+n个DN节点</p>
+</li>
+</ul>
+<h1 id="HDFS副本机制"><a href="#HDFS副本机制" class="headerlink" title="HDFS副本机制"></a>HDFS副本机制</h1><ul>
+<li><p>replication factor：副本系数，副本因子</p>
+</li>
+<li><p>信息存放到NN中</p>
+</li>
+<li><p>一个文件中除了最后一个block，其他文件大小都相同</p>
+</li>
+<li>HDFS中的文件不支持多并发写，只能写一次 write-once</li>
+<li>DD定期发送  Heartbeat and Blockreport</li>
+</ul>
+<blockquote>
+<p>HDFS is designed to reliably store very large files across machines in a large cluster. It stores each file as a sequence of blocks. The blocks of a file are replicated for fault tolerance. The block size and replication factor are configurable per file.</p>
+<p>All blocks in a file except the last block are the same size, while users can start a new block without filling out the last block to the configured block size after the support for variable length block was added to append and hsync.</p>
+<p>An application can specify the number of replicas of a file. The replication factor can be specified at file creation time and can be changed later. Files in HDFS are write-once (except for appends and truncates) and have strictly one writer at any time.</p>
+<p>The NameNode makes all decisions regarding replication of blocks. It periodically receives a Heartbeat and a Blockreport from each of the DataNodes in the cluster. Receipt of a Heartbeat implies that the DataNode is functioning properly. A Blockreport contains a list of all blocks on a DataNode.</p>
+</blockquote>
+<p><img src="http://ww1.sinaimg.cn/large/9d82e933ly1fzd2xhhjmxj20oa0ewaal.jpg" alt=""></p>
+<h2 id="副本存放策略"><a href="#副本存放策略" class="headerlink" title="副本存放策略"></a>副本存放策略</h2><p>将文件存放在不同的Rack 上。</p>
+<p><img src="http://ww1.sinaimg.cn/large/9d82e933ly1fzd35g6o75j20dc0a3acc.jpg" alt=""></p>
+<h1 id="HDFS环境搭建"><a href="#HDFS环境搭建" class="headerlink" title="HDFS环境搭建"></a>HDFS环境搭建</h1><p>见另文。</p>
+<h1 id="HDFS-shell"><a href="#HDFS-shell" class="headerlink" title="HDFS shell"></a>HDFS shell</h1><p>​    以官网为准，这里只写出常见多用到的命令，与linux平台使用方式类似。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Usage: hdfs [SHELL_OPTIONS] COMMAND [GENERIC_OPTIONS] [COMMAND_OPTIONS]</span><br></pre></td></tr></table></figure>
+<p>常见命令的使用：</p>
+<ul>
+<li>ls</li>
+<li>mkdir</li>
+<li>put</li>
+<li>get</li>
+<li>rm</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">eg：上传文件并查看</span><br><span class="line">hadoop fs -put hello /	#上传</span><br><span class="line">hadoop fs -ls /			#查看文件目录列表</span><br><span class="line">hadoop fs -text （或者-cat） /hello.txt 	# 查看文件内容</span><br><span class="line"></span><br><span class="line">eg：创建文件夹</span><br><span class="line">hadoop fs -mkdir /test</span><br><span class="line">hadoop fs -mkdir -p /test/a/b	#递归创建文件夹</span><br><span class="line"></span><br><span class="line">eg：下载文件</span><br><span class="line">hadoop fs -get	xxx</span><br></pre></td></tr></table></figure>
+<p>​    上传的文件可以在浏览器端查看，可以查看每个文件包含的block。</p>
+<h1 id="Java-API操作HDFS"><a href="#Java-API操作HDFS" class="headerlink" title="Java API操作HDFS"></a>Java API操作HDFS</h1><p>见另文。</p>
+<p>通过hdfs shell 的方式put文件到hdfs中，才采用默认的副本系数，</p>
+<p>如果采用java api方式上传上去，由于在本地没有设置副本系数，所以副本系数为3。</p>
+<h1 id="HDFS文件读写流程"><a href="#HDFS文件读写流程" class="headerlink" title="HDFS文件读写流程"></a>HDFS文件读写流程</h1><p>文件读写流程。</p>
+<h2 id="角色"><a href="#角色" class="headerlink" title="角色"></a>角色</h2><ul>
+<li><p>Client：发起读写请求</p>
+</li>
+<li><p>NameNode：核心，只有一个，管理协调请求</p>
+</li>
+<li>DataNodes：数据存储，数量多</li>
+</ul>
+<h2 id="写文件过程"><a href="#写文件过程" class="headerlink" title="写文件过程"></a>写文件过程</h2><ul>
+<li>客户端发起写文件请求（一个好的客户端应该不需要制定blocksize块大小和replication factor副本系数）<ul>
+<li>客户端将文件拆分成块</li>
+</ul>
+</li>
+<li>询问NameNode ，先处理 first block 第一块的数据， NameNode 读取副本系数，然后根据距离远近返回三个 DataNode </li>
+<li>Client  将 first block 第一块的数据写到第一个DataNode上，然后以  pipeline 流水线的方式将同样的数据写到第二三个 DataNode上。</li>
+<li>当三个DataNode都写完first block 后，向NameNode发送 已完成的信号。</li>
+<li>重复以上操作将其余的block都写完。</li>
+</ul>
+<h2 id="读文件过程"><a href="#读文件过程" class="headerlink" title="读文件过程"></a>读文件过程</h2><ul>
+<li>客户端发起请求，请求文件名</li>
+<li>Namenode响应，并按照块返回一个文件所包含的块以及每个块分布在哪些DataNode上的信息</li>
+<li>client 读取下载数据</li>
+</ul>
+<h1 id="HDFS优缺点"><a href="#HDFS优缺点" class="headerlink" title="HDFS优缺点"></a>HDFS优缺点</h1><h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ul>
+<li>数据冗余，硬件容错</li>
+<li>适合存储大文件</li>
+<li>处理流式的数据访问</li>
+<li>可构建在廉价机器上</li>
+</ul>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><ul>
+<li>高延迟的数据访问</li>
+<li>不适合小文件的存储</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Hadoop/" rel="tag"># Hadoop</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/20/初识Hadoop/" rel="next" title="初识Hadoop">
+                <i class="fa fa-chevron-left"></i> 初识Hadoop
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/20/x86-ARM-MIPS区别与辨析/" rel="prev" title="x86,ARM,MIPS区别与辨析">
+                x86,ARM,MIPS区别与辨析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/th.jpg"
+                alt="Vee" />
+            
+              <p class="site-author-name" itemprop="name">Vee</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Veeupup" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:code@tanweime.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HDFS概述及设计目标"><span class="nav-number">1.</span> <span class="nav-text">HDFS概述及设计目标</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是HDFS"><span class="nav-number">1.1.</span> <span class="nav-text">什么是HDFS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计目标"><span class="nav-number">1.2.</span> <span class="nav-text">设计目标</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HDFS架构"><span class="nav-number">2.</span> <span class="nav-text">HDFS架构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HDFS副本机制"><span class="nav-number">3.</span> <span class="nav-text">HDFS副本机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#副本存放策略"><span class="nav-number">3.1.</span> <span class="nav-text">副本存放策略</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HDFS环境搭建"><span class="nav-number">4.</span> <span class="nav-text">HDFS环境搭建</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HDFS-shell"><span class="nav-number">5.</span> <span class="nav-text">HDFS shell</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java-API操作HDFS"><span class="nav-number">6.</span> <span class="nav-text">Java API操作HDFS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HDFS文件读写流程"><span class="nav-number">7.</span> <span class="nav-text">HDFS文件读写流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#角色"><span class="nav-number">7.1.</span> <span class="nav-text">角色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写文件过程"><span class="nav-number">7.2.</span> <span class="nav-text">写文件过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#读文件过程"><span class="nav-number">7.3.</span> <span class="nav-text">读文件过程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HDFS优缺点"><span class="nav-number">8.</span> <span class="nav-text">HDFS优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#优点"><span class="nav-number">8.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缺点"><span class="nav-number">8.2.</span> <span class="nav-text">缺点</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Vee</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info"><a class="theme-link" target="_blank" >欢迎交流，邮箱：code@tanweime.com</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '2EvuE7DR5VjPBEUMI61zxkem-gzGzoHsz',
+        appKey: '4fm1qgkOW3HrhDRfoQEdE3sx',
+        placeholder: '来快活鸭~',
+        avatar:'/source/images/th.jpg',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<script type="text/javascript" src="/js/src/love.js"></script>

@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="linux,hack,kali-Linux," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="在网安实验室暑期实习中，兴趣使然对网络安全方面进行了学习，在此记录下网络渗透中的一般步骤和常用工具，这只是一篇总结。">
+<meta name="keywords" content="linux,hack,kali-Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络渗透一般过程和常用工具">
+<meta property="og:url" content="http://yoursite.com/2018/08/30/网络渗透常用工具和方法/index.html">
+<meta property="og:site_name" content="TanPiPi">
+<meta property="og:description" content="在网安实验室暑期实习中，兴趣使然对网络安全方面进行了学习，在此记录下网络渗透中的一般步骤和常用工具，这只是一篇总结。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-26T11:19:22.353Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="网络渗透一般过程和常用工具">
+<meta name="twitter:description" content="在网安实验室暑期实习中，兴趣使然对网络安全方面进行了学习，在此记录下网络渗透中的一般步骤和常用工具，这只是一篇总结。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/30/网络渗透常用工具和方法/"/>
+
+
+
+
+
+  <title>网络渗透一般过程和常用工具 | TanPiPi</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f46ee4ca884dfdc5b2f5e8423ee52770";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/Veeupup"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">TanPiPi</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-something">
+          <a href="/something" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            有料
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/30/网络渗透常用工具和方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Vee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/th.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TanPiPi">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">网络渗透一般过程和常用工具</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-30T13:13:55+08:00">
+                2018-08-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/网络安全/" itemprop="url" rel="index">
+                    <span itemprop="name">网络安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/30/网络渗透常用工具和方法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/08/30/网络渗透常用工具和方法/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在网安实验室暑期实习中，兴趣使然对网络安全方面进行了学习，在此记录下网络渗透中的一般步骤和常用工具，这只是一篇总结。</p>
+<a id="more"></a>
+<h1 id="网络渗透过程"><a href="#网络渗透过程" class="headerlink" title="网络渗透过程"></a>网络渗透过程</h1><p>网络渗透主要分为三个阶段，准备阶段、实施阶段和善后阶段，这三个阶段都不可少，都是必备的部分，故不可忽视任何一个部分。</p>
+<p>渗透环境：<strong>Kali Linux</strong>（十星推荐使用，自带非常多的hack工具，同时inux环境下很多相关shell用的很舒服）</p>
+<h2 id="准备阶段"><a href="#准备阶段" class="headerlink" title="准备阶段"></a>准备阶段</h2><p>准备阶段是整个网络渗透能否成功的前提。在这个过程中，要尽可能的搜集关于网站站点的信息，在另外一篇博客《座位管理渗透》中有详细的过程，这里不赘述，只是提一下需要搜集的工具和信息。</p>
+<h3 id="相关信息搜集"><a href="#相关信息搜集" class="headerlink" title="相关信息搜集"></a>相关信息搜集</h3><ul>
+<li>网站域名的相关信息（包括注册人，地点，注册时间等有价值的信息）</li>
+<li>网站服务器的相关信息（地理位置，注册人，注册时间，电话等）</li>
+<li>搜集系统信息包括 OS 版本、Linux内核版本</li>
+<li>采用服务器软件的版本和信息（Apache、Nginx、Tomcat等）</li>
+<li>服务器开放的端口 （80,443,3306,3389等）</li>
+<li>网站是否采用防火墙WA的检测</li>
+<li>网站是否使用了什么前后端框架（MVC或MVVM，或者具体的信息，Django、laravel、Vue、jQuery、flask等，）track：检测前后端的debug模式是否开启</li>
+<li>阅读网站前端源代码，从源代码中找到相关的信息</li>
+</ul>
+<h3 id="常见漏洞扫描和分析"><a href="#常见漏洞扫描和分析" class="headerlink" title="常见漏洞扫描和分析"></a>常见漏洞扫描和分析</h3><p>在进行相关信息搜集之后，开始进行漏洞的分析查找</p>
+<p>常见漏洞的扫描包括但不限于：</p>
+<ul>
+<li>XSS跨站脚本攻击（有请求时或输入请求时可尝试，多是利用cookie）</li>
+<li>CSRF请求伪造（条件比较难，需要用户点击恶意链接）</li>
+<li>Clickjacking点击劫持（需要用户点击恶意链接）</li>
+<li>SQL注入攻击（可尝试，但现在利用框架很多，漏洞比较少）</li>
+<li>文件上传漏洞（如果有漏洞，就非常的爽，直接上传木马）</li>
+<li>访问控制，绕过管理员权限（认证时间等）</li>
+<li>加密算法的破解（比较难，稍微了解下）</li>
+<li>暴力破解密码……（确实比较暴力，但是对于某些防范不好的网站比较有用）</li>
+<li>各种版本问题，OS，服务器软件版本，服务器语言版本，如果比较老的话，可以在相关漏洞库找到可以利用的漏洞</li>
+<li>利用开放的端口，有些服务器开放的多余的端口可以加以利用（不是特别了解有的特定端口，遇到特定端口请google）</li>
+<li>代码审计……阅读可以获取到的部分源码来渗透，如果有多个站点是同一团队也许可以阅读该团队或人写的特定代码来进行代码风格的猜测从而加以利用</li>
+</ul>
+<h2 id="实施攻击"><a href="#实施攻击" class="headerlink" title="实施攻击"></a>实施攻击</h2><ul>
+<li>以上提到的这么多的漏洞，可以加以利用</li>
+<li>其他攻击方式：</li>
+<li>缓冲区溢出（并没有机会尝试过）</li>
+</ul>
+<blockquote>
+<p>缓冲区溢出是一种非常普遍、非常危险的漏洞，在各种<a href="https://baike.baidu.com/item/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/192" target="_blank" rel="noopener">操作系统</a>、应用软件中广泛存在。利用<a href="https://baike.baidu.com/item/%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA%E6%94%BB%E5%87%BB/11056235" target="_blank" rel="noopener">缓冲区溢出攻击</a>，可以导致程序运行失败、系统宕机、重新启动等后果。更为严重的是，可以利用它执行非授权指令，甚至可以取得系统特权，进而进行各种非法操作。</p>
+</blockquote>
+<ul>
+<li>DOS、与DDOS拒绝服务攻击（你如果有可以利用的肉鸡。。或服务器，我用不上这种攻击方式）</li>
+<li>木马、病毒、蠕虫攻击…（看你是否需要）</li>
+</ul>
+<blockquote>
+</blockquote>
+<h2 id="善后阶段"><a href="#善后阶段" class="headerlink" title="善后阶段"></a>善后阶段</h2><p>善后阶段也就是隐藏踪迹，不被网站管理员等发现，主要有两种方式。</p>
+<h3 id="跳板技术"><a href="#跳板技术" class="headerlink" title="跳板技术"></a>跳板技术</h3><p>在进行渗透的时候，使用自己的主机直接攻击另外一台设备比较愚蠢。所以需要借助跳板，举个例子，使用自己的主机挂一个境外的VPN（别实名..邮箱等信息），然后3389端口连接远程肉鸡的桌面，利用肉鸡，xshell连接远程服务器，然后在shell里进行渗透，跳板层数越多，追查起来就越复杂。</p>
+<p>当然，你也可以在二手市场买一个旧电脑，在没有摄像头的地方连接公共wifi进行渗透，哈哈，然后电脑丢掉就行。</p>
+<h3 id="日志修改"><a href="#日志修改" class="headerlink" title="日志修改"></a>日志修改</h3><p>入侵之后对入侵的主机进行操作肯定会有相关的日志记录，所以需要修改日志来隐藏痕迹，介绍两个看到的比较好的方法</p>
+<p>第一个是上传日志清除工具</p>
+<p>第二个是在入侵时备份所有可能修改的日志，然后离开时还原日志，可以自己写成一个shell比较方便，定制</p>
+<p>那句诗怎么说的：</p>
+<blockquote>
+<p>天空不留下鸟的痕迹，但我已飞过</p>
+</blockquote>
+<h2 id="好用的工具"><a href="#好用的工具" class="headerlink" title="好用的工具"></a>好用的工具</h2><p><a href="who.is">Who.is</a> 查询DNS记录</p>
+<p><a href="Sameip.org">Sameip.org</a>查询域名绑定的服务器</p>
+<p>namp扫描OS、port、WAS等类似的SuperScan 、X-scan</p>
+<p>DirBuster来进行网站文件包含漏洞的扫描，搜集文件和文件夹信息</p>
+<p>OWASP ZAP和Nikto工具，进行常见漏洞的扫描</p>
+<p>sqlmap进行SQL注入的扫描</p>
+<p>Hydra进行密码暴力破解</p>
+<p>antSword进行webshell连接</p>
+<p>Burp Suite抓包分析</p>
+<p>工具只是工具，不要被工具所束缚住，要做一些工具做不到的事情……作为一个渗透着，要学会从各个角度分析可能出现漏洞的方面，知己知彼百战百胜。</p>
+<p>加油。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+            <a href="/tags/hack/" rel="tag"># hack</a>
+          
+            <a href="/tags/kali-Linux/" rel="tag"># kali-Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/30/座位管理系统渗透/" rel="next" title="座位管理系统渗透">
+                <i class="fa fa-chevron-left"></i> 座位管理系统渗透
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/09/树莓派的系统安装-默认键盘更换-换源（坑）/" rel="prev" title="树莓派的系统安装+默认键盘更换+换源（坑）">
+                树莓派的系统安装+默认键盘更换+换源（坑） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/th.jpg"
+                alt="Vee" />
+            
+              <p class="site-author-name" itemprop="name">Vee</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Veeupup" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:code@tanweime.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#网络渗透过程"><span class="nav-number">1.</span> <span class="nav-text">网络渗透过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备阶段"><span class="nav-number">1.1.</span> <span class="nav-text">准备阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#相关信息搜集"><span class="nav-number">1.1.1.</span> <span class="nav-text">相关信息搜集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见漏洞扫描和分析"><span class="nav-number">1.1.2.</span> <span class="nav-text">常见漏洞扫描和分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实施攻击"><span class="nav-number">1.2.</span> <span class="nav-text">实施攻击</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#善后阶段"><span class="nav-number">1.3.</span> <span class="nav-text">善后阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#跳板技术"><span class="nav-number">1.3.1.</span> <span class="nav-text">跳板技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#日志修改"><span class="nav-number">1.3.2.</span> <span class="nav-text">日志修改</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#好用的工具"><span class="nav-number">1.4.</span> <span class="nav-text">好用的工具</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Vee</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info"><a class="theme-link" target="_blank" >欢迎交流，邮箱：code@tanweime.com</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '2EvuE7DR5VjPBEUMI61zxkem-gzGzoHsz',
+        appKey: '4fm1qgkOW3HrhDRfoQEdE3sx',
+        placeholder: '来快活鸭~',
+        avatar:'/source/images/th.jpg',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<script type="text/javascript" src="/js/src/love.js"></script>
