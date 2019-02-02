@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hadoop," />
+  <meta name="keywords" content="nginx," />
 
 
 
@@ -79,24 +79,20 @@
 
 
 
-<meta name="description" content="记录学习Hadoop记录的笔记。 第一篇，对整个Hadoop的基本介绍和了解。">
-<meta name="keywords" content="Hadoop">
+<meta name="description" content="​    站起来，伸个懒腰，今天总算是稍微系统的了解了Nginx，越看越喜欢这个异步框架的Web服务器了。这里不想记录nginx的具体配置和使用，网上和笔记中都有非常详细的教程，这里就不赘述了，只想说一下Nginx的架构设计和主要功能。">
+<meta name="keywords" content="nginx">
 <meta property="og:type" content="article">
-<meta property="og:title" content="初识Hadoop">
-<meta property="og:url" content="http://yoursite.com/2019/01/20/初识Hadoop/index.html">
+<meta property="og:title" content="关于nginx">
+<meta property="og:url" content="http://yoursite.com/2019/02/02/关于nginx/index.html">
 <meta property="og:site_name" content="TanPiPi">
-<meta property="og:description" content="记录学习Hadoop记录的笔记。 第一篇，对整个Hadoop的基本介绍和了解。">
+<meta property="og:description" content="​    站起来，伸个懒腰，今天总算是稍微系统的了解了Nginx，越看越喜欢这个异步框架的Web服务器了。这里不想记录nginx的具体配置和使用，网上和笔记中都有非常详细的教程，这里就不赘述了，只想说一下Nginx的架构设计和主要功能。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ww1.sinaimg.cn/large/9d82e933gy1fzd0hzzt06j20h10b6qj4.jpg">
-<meta property="og:image" content="http://ww1.sinaimg.cn/large/9d82e933gy1fzd0ig9onsj20sr0gj7dd.jpg">
-<meta property="og:image" content="http://ww1.sinaimg.cn/large/9d82e933gy1fzd0ioa2onj20s20g5k77.jpg">
-<meta property="og:image" content="http://ww1.sinaimg.cn/large/9d82e933gy1fzd0iur5bmj210o0ew7fk.jpg">
-<meta property="og:image" content="http://ww1.sinaimg.cn/large/9d82e933gy1fzd0jjbrjaj20jm09vqb8.jpg">
-<meta property="og:updated_time" content="2019-01-26T11:19:22.351Z">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9d82e933gy1fzs3gnug4bj213u0qo7f7.jpg">
+<meta property="og:updated_time" content="2019-02-02T07:14:01.208Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="初识Hadoop">
-<meta name="twitter:description" content="记录学习Hadoop记录的笔记。 第一篇，对整个Hadoop的基本介绍和了解。">
-<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/9d82e933gy1fzd0hzzt06j20h10b6qj4.jpg">
+<meta name="twitter:title" content="关于nginx">
+<meta name="twitter:description" content="​    站起来，伸个懒腰，今天总算是稍微系统的了解了Nginx，越看越喜欢这个异步框架的Web服务器了。这里不想记录nginx的具体配置和使用，网上和笔记中都有非常详细的教程，这里就不赘述了，只想说一下Nginx的架构设计和主要功能。">
+<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/9d82e933gy1fzs3gnug4bj213u0qo7f7.jpg">
 
 
 
@@ -126,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/01/20/初识Hadoop/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/02/02/关于nginx/"/>
 
 
 
 
 
-  <title>初识Hadoop | TanPiPi</title>
+  <title>关于nginx | TanPiPi</title>
   
 
 
@@ -279,7 +275,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/20/初识Hadoop/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/02/关于nginx/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Vee">
@@ -296,7 +292,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">初识Hadoop</h1>
+          <h1 class="post-title" itemprop="name headline">关于nginx</h1>
         
 
         <div class="post-meta">
@@ -308,8 +304,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-20T13:24:15+08:00">
-                2019-01-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-02T14:28:25+08:00">
+                2019-02-02
               </time>
             
 
@@ -331,8 +327,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/大数据/" itemprop="url" rel="index">
-                    <span itemprop="name">大数据</span>
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
                   </a>
                 </span>
 
@@ -349,8 +345,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/01/20/初识Hadoop/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/01/20/初识Hadoop/" itemprop="commentCount"></span>
+                <a href="/2019/02/02/关于nginx/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/02/关于nginx/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -378,127 +374,93 @@
       
 
       
-        <pre><code>记录学习Hadoop记录的笔记。
-第一篇，对整个Hadoop的基本介绍和了解。
-</code></pre><a id="more"></a>
-<p>名称由来：</p>
-<p><img src="http://ww1.sinaimg.cn/large/9d82e933gy1fzd0hzzt06j20h10b6qj4.jpg" alt="clipboard.png"></p>
-<h3 id="http-hadoop-apache-org"><a href="#http-hadoop-apache-org" class="headerlink" title="http://hadoop.apache.org/"></a><em><a href="http://hadoop.apache.org/" target="_blank" rel="noopener">http://hadoop.apache.org/</a></em></h3><p>分布式存储 + 分布式计算平台</p>
-<h2 id="能做什么"><a href="#能做什么" class="headerlink" title="能做什么"></a>能做什么</h2><ul>
-<li><p>搜索引擎</p>
-</li>
-<li><p>日志分析</p>
-</li>
-<li><p>商业智能</p>
-</li>
-<li><p>数据挖掘</p>
-</li>
-</ul>
-<h1 id="核心组件"><a href="#核心组件" class="headerlink" title="核心组件"></a>核心组件</h1><h2 id="分布式文件系统-HDFS"><a href="#分布式文件系统-HDFS" class="headerlink" title="分布式文件系统 HDFS"></a>分布式文件系统 HDFS</h2><ul>
-<li><p>源自 Google 的GFS 的论文，论文发表于 2003 年10月</p>
-</li>
-<li><p>HDFS 是 GFS 的克隆版</p>
-</li>
-<li><p>HDFS特点：拓展性、容错性、海量数量存储</p>
-</li>
-<li><p>将文件切分成指定大小的数据块（128MB）并以多副本存储的多个机器上</p>
-</li>
-<li><p>数据切分、多副本、容错等操作对用户透明</p>
-</li>
-</ul>
-<p><img src="http://ww1.sinaimg.cn/large/9d82e933gy1fzd0ig9onsj20sr0gj7dd.jpg" alt="clipboard.png"></p>
-<h2 id="资源管理调度系统-YARN"><a href="#资源管理调度系统-YARN" class="headerlink" title="资源管理调度系统 YARN"></a>资源管理调度系统 YARN</h2><ul>
-<li><p>YARN —— Yet Another Resource Negotiator</p>
-</li>
-<li><p>负责整个集群资源的管理和调度</p>
-</li>
-<li><p>特点：拓展性、容错性、多框架资源统一调度</p>
-</li>
-</ul>
-<p><img src="http://ww1.sinaimg.cn/large/9d82e933gy1fzd0ioa2onj20s20g5k77.jpg" alt="clipboard.png"></p>
-<h2 id="分布式计算框架-MapReduce"><a href="#分布式计算框架-MapReduce" class="headerlink" title="分布式计算框架 MapReduce"></a>分布式计算框架 MapReduce</h2><ul>
-<li><p>源自 Google的MapReduce 论文 ，2004.12</p>
-</li>
-<li><p>MapReduce是Google MapReduce的克隆版</p>
-</li>
-<li><p>特点：拓展性、容错性、海量数据离线处理</p>
-</li>
-</ul>
-<p><img src="http://ww1.sinaimg.cn/large/9d82e933gy1fzd0iur5bmj210o0ew7fk.jpg" alt="clipboard.png"></p>
-<h1 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h1><h2 id="高可靠性"><a href="#高可靠性" class="headerlink" title="高可靠性"></a>高可靠性</h2><ul>
-<li><p>数据存储：数据块多副本</p>
-</li>
-<li><p>数据计算：重新调度作业计算</p>
-</li>
-</ul>
-<h2 id="高拓展性"><a href="#高拓展性" class="headerlink" title="高拓展性"></a>高拓展性</h2><ul>
-<li><p>存储/计算资源不够的时候，可以横向拓展线性增加</p>
-</li>
-<li><p>一个集群中可以包含数以千计的节点</p>
-</li>
-</ul>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
-<li><p>存储在廉价机器上，降低成本</p>
-</li>
-<li><p>成熟的生态圈</p>
-</li>
-</ul>
-<h1 id="发展史"><a href="#发展史" class="headerlink" title="发展史"></a>发展史</h1><p><em><a href="https://www.infoq.cn/article/hadoop-ten-years-interpretation-and-development-forecast" target="_blank" rel="noopener">https://www.infoq.cn/article/hadoop-ten-years-interpretation-and-development-forecast</a></em></p>
-<h1 id="生态系统"><a href="#生态系统" class="headerlink" title="生态系统"></a>生态系统</h1><h2 id="狭义Hadoop"><a href="#狭义Hadoop" class="headerlink" title="狭义Hadoop"></a>狭义Hadoop</h2><p>一个适合大数据<br>分布式存储（HDFS）、分布式计算（MapReduce）、资源调度（YARN）的平台。</p>
-<h2 id="广义Hadoop"><a href="#广义Hadoop" class="headerlink" title="广义Hadoop"></a>广义Hadoop</h2><p>Hadoop生态系统，Hadoop生态系统是一个很庞大的概念，Hadoop是其中最重要最基础的一个部分；生态系统中的每一子系统只解决某一个特定的问题域（甚至可能很窄），不搞统一的一个全能系统，而是小而精的多个小系统。</p>
-<p><img src="http://ww1.sinaimg.cn/large/9d82e933gy1fzd0jjbrjaj20jm09vqb8.jpg" alt="clipboard.png"></p>
+        <p>​    站起来，伸个懒腰，今天总算是稍微系统的了解了Nginx，越看越喜欢这个异步框架的Web服务器了。这里不想记录nginx的具体配置和使用，网上和笔记中都有非常详细的教程，这里就不赘述了，只想说一下Nginx的架构设计和主要功能。</p>
+<a id="more"></a>
+<h1 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h1><p>​    先说主要功能吧，自己有些主要功能了解和使用，部分功能自己并没有实践。</p>
 <ul>
-<li><p>HDFS（文件系统）是GFS的一个克隆版，存储数据，多副本，高容错，是Google的GFS的论文的实现</p>
-</li>
-<li><p>MapReduce跑在YARN之上，编程较复杂</p>
-</li>
-<li><p>Hive：Facebook开源，类似SQL的语言对海量数据进行统计分析，离线分析</p>
-</li>
-<li><p>R Connectors：统计分析数据</p>
-</li>
-<li><p>Mahout：机器学习的库</p>
-</li>
-<li><p>Pig：脚本性的语言，Yahoo开源，脚本转换到MapReduce上实现，离线分析</p>
-</li>
-<li><p>Ooize：工作流调度引擎</p>
-</li>
-<li><p>Zookeeper：协调，管理框架，ex：Hbase的单点问题</p>
-</li>
-<li><p>Flume：日志收集框架，进行处理分析</p>
-</li>
-<li><p>Sqoop：（SQL+Hadoop）传统关系型数据库，和各个框架之间协调</p>
-</li>
-<li><p>Hbase：列式存储（基于BigTable的论文），Hadoop中的数据库</p>
-</li>
+<li>作为基本HTTP服务器<ul>
+<li>提供静态和索引文件，自动索引; 打开文件描述符缓存;</li>
+<li>加速反向代理与缓存; 负载均衡和容错;</li>
+<li>通过缓存FastCGI，uwsgi，SCGI和memcached服务器来加速支持; 负载均衡和容错;</li>
+<li>模块化架构。 过滤器包括gzip，字节范围，分块响应，XSLT，SSI和图像变换过滤器。 如果由代理或FastCGI/uwsgi/SCGI服务器处理，则单页内的多个SSI包含可以并行处理;</li>
+<li>SSL和TLS SNI支持;</li>
+<li>支持具有加权和依赖关系优先级的HTTP/2。</li>
 </ul>
-<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul>
-<li><p>开源、社区活跃</p>
 </li>
-<li><p>囊括了大数据处理的方方面面</p>
-</li>
-<li><p>成熟的生态圈</p>
-</li>
-</ul>
-<h1 id="发行版的选择"><a href="#发行版的选择" class="headerlink" title="发行版的选择"></a>发行版的选择</h1><ul>
-<li><p>Apache Hadoop （不建议生产环境，冲突难以解决）</p>
-</li>
-<li><p>CDH：Cloudera Distributed Hadoop（搭建方便，部分，有部分改变）</p>
-</li>
-</ul>
-<p><em><a href="http://archive.cloudera.com/" target="_blank" rel="noopener">http://archive.cloudera.com/</a></em></p>
-<p>区别版本，hadoop版本和cdh版本可以分开，相关的版本相同即可，避免冲突</p>
+<li><p>其他HTTP服务器功能</p>
 <ul>
-<li>HDP: Hortonworks Data Platform（市场份额最多，原装Hadoop）</li>
+<li>基于名称和基于IP的虚拟服务器;</li>
+<li>保持活动和管道连接的支持;</li>
+<li>访问日志格式，缓冲日志写入，快速日志轮换和syslog日志记录;</li>
+<li><code>3xx</code>-<code>5xx</code>错误代码重定向;</li>
+<li>重写模块：使用正则表达式更改URI;</li>
+<li>根据客户端地址执行不同的功能;</li>
+<li>根据客户端IP地址，密码(HTTP Basic认证)和子请求结果进行访问控制;</li>
+<li>HTTP引用的验证</li>
+<li>PUT，DELETE，MKCOL，COPY和MOVE方法;</li>
+<li>FLV和MP4流媒体;</li>
+<li>响应速度限制;</li>
+<li>限制来自一个地址的同时连接或请求的数量;</li>
+<li>基于IP的地理定位;</li>
+<li>A/B测试;</li>
+<li>嵌入式Perl</li>
+<li>nginScript。</li>
 </ul>
-<h1 id="企业应用案例"><a href="#企业应用案例" class="headerlink" title="企业应用案例"></a>企业应用案例</h1><ul>
-<li><p>消费大数据</p>
+</li>
+<li><p>邮件代理服务器</p>
 <ul>
-<li>Amazon ， 用户消费的大数据分析（在下单之前），提前发送包裹</li>
+<li>使用外部HTTP认证服务器将用户重定向到IMAP或POP3服务器;</li>
+<li>使用外部HTTP认证服务器进行用户认证，并将连接重定向到内部SMTP服务器;</li>
+<li>认证方式：<ul>
+<li>POP3：USER / PASS，APOP，AUTH LOGIN / PLAIN / CRAM-MD5;</li>
+<li>IMAP：LOGIN，AUTH LOGIN / PLAIN / CRAM-MD5;</li>
+<li>SMTP：AUTH LOGIN / PLAIN / CRAM-MD5;</li>
 </ul>
 </li>
-<li><p>商品零售大数据</p>
+<li>SSL支持;</li>
+<li>STARTTLS和STLS支持。</li>
+</ul>
+</li>
+<li><p>TCP/UDP代理服务器功能</p>
+<ul>
+<li>TCP和UDP的通用代理;</li>
+<li>SSL和TLS SNI支持TCP;</li>
+<li>负载均衡和容错;</li>
+<li>基于客户地址的访问控制;</li>
+<li>根据客户端地址执行不同的功能;</li>
+<li>限制来自一个地址的同时连接数;</li>
+<li>访问日志格式，缓冲日志写入，快速日志轮换和syslog日志记录;</li>
+<li>基于IP的地理定位;</li>
+<li>A/B测试;</li>
+<li>nginScript。</li>
+</ul>
+<p>=======================</p>
+<p>以上是nginx的主要功能，但是在实际使用中，主要有以下几种应用场景，我在平时用的比较多的也就是反向代理和HTTP服务器。</p>
+</li>
+<li><p>反向代理</p>
+</li>
+<li><p>负载均衡</p>
+</li>
+<li><p>HTTP服务器</p>
+</li>
+<li><p>正向代理</p>
 </li>
 </ul>
+<h1 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h1><p>首先看一下架构图。</p>
+<p><img src="https://ws1.sinaimg.cn/large/9d82e933gy1fzs3gnug4bj213u0qo7f7.jpg" alt=""></p>
+<ul>
+<li>nginx 不会为每一个连接生成一个进程或者线程。相反，工作(<code>worker</code>)进程接受来自共享“listen”套接字的新请求，并在每个工作(<code>worker</code>)内执行高效的运行循环，以处理每个工作(<code>worker</code>)中的数千个连接。 没有专门的仲裁或分配与nginx工作(<code>worker</code>)的联系; 这个工作(<code>worker</code>)是由操作系统内核机制完成的。 启动后，将创建一组初始侦听套接字。 然后，工作(<code>worker</code>)在处理HTTP请求和响应时不断接受，读取和写入套接字。</li>
+<li>运行循环是nginx工作(<code>worker</code>)代码中最复杂的部分。 它包括全面的内部调用，并且在很大程度上依赖异步任务处理的想法。 异步操作通过模块化，事件通知，广泛使用回调函数和微调定时器来实现。 总体而言，关键原则是尽可能不阻塞。 nginx仍然可以阻塞的唯一情况是工作(<code>worker</code>)进程没有足够的磁盘存储。</li>
+<li>在绝大多数情况下，内存使用非常保守，非常有效。 nginx也节省CPU周期，因为进程或线程没有持续的创建 - 销毁模式。 nginx的作用是检查网络和存储的状态，初始化新连接，将其添加到运行循环中，并异步处理直到完成，此时连接被重新分配并从运行循环中删除。 结合仔细使用系统调用(<code>syscall</code>)和精确实现支持接口(如<code>pool</code>和<code>slab</code>内存分配器)，nginx通常可以在极端工作负载下实现中到低的CPU使用。</li>
+<li>在一些磁盘使用和CPU负载模式，应调整nginx工作(<code>worker</code>)的数量。 在这里说一点基础规则：系统管理员应该为其工作负载尝试几个配置。 一般建议可能如下：如果负载模式是CPU密集型的，例如，处理大量TCP/IP，执行SSL或压缩，则nginx工作(<code>worker</code>)的数量应与CPU内核数量相匹配; 如果负载大多是磁盘I/O绑定，例如，从存储或重代理服务不同的内容集合 - 工作(<code>worker</code>)的数量可能是核心数量的一到两倍。</li>
+<li>nginx的开发人员将在即将推出的版本中解决的一个主要问题是如何避免磁盘I/O上的大多数阻塞。 目前，如果没有足够的存储性能来提供特定工作(<code>worker</code>)生成的磁盘操作，该工作(<code>worker</code>)可能仍然阻止从磁盘读取/写入。 存在许多机制和配置文件指令来减轻此类磁盘I/O阻塞情况。</li>
+<li>现有工作(<code>worker</code>)模式的另一个问题是与嵌入式脚本的有限支持有关。 一个使用标准的nginx分发，只支持嵌入Perl脚本。一个简单的解释：关键问题是嵌入式脚本阻止任何操作或意外退出的可能性。 这两种类型的行为将立即导致工作(<code>worker</code>)挂起的情况，同时影响到数千个连接。 更多的工作(<code>worker</code>)计划是使nginx的嵌入式脚本更简单，更可靠，适用于更广泛的应用。</li>
+</ul>
+<h1 id="nginx进程中的角色"><a href="#nginx进程中的角色" class="headerlink" title="nginx进程中的角色"></a>nginx进程中的角色</h1><p>​    nginx在内存中运行多个进程，包括一个主进程和多个工作 worker 进程。</p>
+<p>​    主进程以 root  用户运行，缓存加载器，缓存管理器和工作(<code>worker</code>)则以无权限用户运行。</p>
+<p>​    worker 进程接受，处理和处理来自客户端的连接，提供反向代理和过滤功能，并执行几乎所有其他的nginx能力。 </p>
+<p>​    缓存加载器进程负责检查磁盘缓存项目，并使用缓存元数据填充nginx的内存数据库。 本质上，缓存加载器准备nginx实例来处理已经存储在磁盘上的特定分配的目录结构中的文件。 它遍历目录，检查缓存内容元数据，更新共享内存中的相关条目，然后在所有内容清洁并准备使用时退出。</p>
+<p>​    缓存管理器主要负责缓存到期和无效。 在正常的nginx操作期间它保持在内存中，并且在失败的情况下由主进程重新启动。</p>
 
       
     </div>
@@ -516,7 +478,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Hadoop/" rel="tag"># Hadoop</a>
+            <a href="/tags/nginx/" rel="tag"># nginx</a>
           
         </div>
       
@@ -529,8 +491,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/05/软件与工具良心记录合集/" rel="next" title="软件与工具良心记录合集">
-                <i class="fa fa-chevron-left"></i> 软件与工具良心记录合集
+              <a href="/2019/01/25/分布式计算框架MapReduce/" rel="next" title="分布式计算框架MapReduce">
+                <i class="fa fa-chevron-left"></i> 分布式计算框架MapReduce
               </a>
             
           </div>
@@ -538,10 +500,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/20/分布式文件系统HDFS/" rel="prev" title="分布式文件系统HDFS">
-                分布式文件系统HDFS <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -696,7 +654,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#http-hadoop-apache-org"><span class="nav-number">1.</span> <span class="nav-text">http://hadoop.apache.org/</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#能做什么"><span class="nav-number"></span> <span class="nav-text">能做什么</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#核心组件"><span class="nav-number"></span> <span class="nav-text">核心组件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分布式文件系统-HDFS"><span class="nav-number"></span> <span class="nav-text">分布式文件系统 HDFS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资源管理调度系统-YARN"><span class="nav-number"></span> <span class="nav-text">资源管理调度系统 YARN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分布式计算框架-MapReduce"><span class="nav-number"></span> <span class="nav-text">分布式计算框架 MapReduce</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优势"><span class="nav-number"></span> <span class="nav-text">优势</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#高可靠性"><span class="nav-number"></span> <span class="nav-text">高可靠性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高拓展性"><span class="nav-number"></span> <span class="nav-text">高拓展性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number"></span> <span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#发展史"><span class="nav-number"></span> <span class="nav-text">发展史</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#生态系统"><span class="nav-number"></span> <span class="nav-text">生态系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#狭义Hadoop"><span class="nav-number"></span> <span class="nav-text">狭义Hadoop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#广义Hadoop"><span class="nav-number"></span> <span class="nav-text">广义Hadoop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特点"><span class="nav-number"></span> <span class="nav-text">特点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#发行版的选择"><span class="nav-number"></span> <span class="nav-text">发行版的选择</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#企业应用案例"><span class="nav-number"></span> <span class="nav-text">企业应用案例</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#主要功能"><span class="nav-number">1.</span> <span class="nav-text">主要功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#架构"><span class="nav-number">2.</span> <span class="nav-text">架构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#nginx进程中的角色"><span class="nav-number">3.</span> <span class="nav-text">nginx进程中的角色</span></a></li></ol></div>
             
 
           </div>
