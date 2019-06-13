@@ -91,7 +91,7 @@
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/007BZfbEly1g0hhvtnr8nj30hs0bs0u0.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/007BZfbEly1g0hig4y8a7j30hw0bbjs1.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/007BZfbEly1g0hil5p7hcj30hs06sdgf.jpg">
-<meta property="og:updated_time" content="2019-02-24T06:54:42.095Z">
+<meta property="og:updated_time" content="2019-02-25T04:47:59.866Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="目标检测算法">
 <meta name="twitter:description" content="​    深度学习在目标检测(Object Detection)中的应用，总结一些常见网络和方法。 ​    本文主要总结介绍R-CNN、Fast R-CNN、Faster R-CNN、YOLO、SSD。 目标检测常见算法​    在目标检测领域的深度学习主要分为两种，one stage 和 two stage。在之前还有以R-CNN为代表的multi-stage，但是由于检测精度和速度问题，已经">
@@ -480,7 +480,9 @@
 <p>​    Faster R-CNN的主要贡献就是设计了提取候选区域的网络RPN，代替了费时的选择性搜索Selective Search，使得检测速度大幅提高。</p>
 </li>
 </ul>
-<h1 id="YOLO和SSD简介"><a href="#YOLO和SSD简介" class="headerlink" title="YOLO和SSD简介"></a>YOLO和SSD简介</h1><h2 id="YOLO-You-Only-Look-Once"><a href="#YOLO-You-Only-Look-Once" class="headerlink" title="YOLO = You Only Look Once"></a>YOLO = You Only Look Once</h2><p>​    YOLO的所属的one-stage，这类方法使用了回归的思想，利用整张图作为网络的输入，直接在图像的多个位置上回归出这个位置的目标边框，以及目标所属的类别。</p>
+<h1 id="YOLO和SSD简介"><a href="#YOLO和SSD简介" class="headerlink" title="YOLO和SSD简介"></a>YOLO和SSD简介</h1><h2 id="YOLO-You-Only-Look-Once"><a href="#YOLO-You-Only-Look-Once" class="headerlink" title="YOLO = You Only Look Once"></a>YOLO = You Only Look Once</h2><p>​    实名推荐这位大佬写的关于YOLO的相关文章，很清楚的讲述了YOLOv1，YOLOv2，YOLOv3的特点和主要思想。</p>
+<p>​    <a href="https://blog.csdn.net/leviopku/article/details/82660381" target="_blank" rel="noopener">链接</a>在此。以下是我自己总结的简单的YOLO的一些特点。</p>
+<p>​    YOLO的所属的one-stage，这类方法使用了回归的思想，利用整张图作为网络的输入，直接在图像的多个位置上回归出这个位置的目标边框，以及目标所属的类别。</p>
 <p>​    YOLO检测的流程：</p>
 <ol>
 <li>给个一个输入图像，首先将图像划分成7*7的网格</li>
@@ -534,6 +536,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/14/关于以后/" rel="prev" title="关于以后">
+                关于以后 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -617,7 +623,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
