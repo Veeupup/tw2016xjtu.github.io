@@ -2,10 +2,8 @@
 
 
 
-  
 
-
-<html class="theme-next pisces use-motion" lang="zh-Hans">
+<html class="theme-next pisces" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -84,7 +82,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于nginx">
 <meta property="og:url" content="http://yoursite.com/2019/02/02/关于nginx/index.html">
-<meta property="og:site_name" content="TanPiPi">
+<meta property="og:site_name" content="小Vcoding">
 <meta property="og:description" content="​    站起来，伸个懒腰，今天总算是稍微系统的了解了Nginx，越看越喜欢这个异步框架的Web服务器了。这里不想记录nginx的具体配置和使用，网上和笔记中都有非常详细的教程，这里就不赘述了，只想说一下Nginx的架构设计和主要功能。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/9d82e933gy1fzs3gnug4bj213u0qo7f7.jpg">
@@ -105,7 +103,7 @@
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
       userId: '0',
       author: '博主'
@@ -128,7 +126,7 @@
 
 
 
-  <title>关于nginx | TanPiPi</title>
+  <title>关于nginx | 小Vcoding</title>
   
 
 
@@ -168,7 +166,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">TanPiPi</span>
+        <span class="site-title">小Vcoding</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -203,6 +201,16 @@
         </li>
       
         
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-about">
           <a href="/about/" rel="section">
             
@@ -219,26 +227,6 @@
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
             标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-something">
-          <a href="/something" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
-            
-            有料
           </a>
         </li>
       
@@ -284,7 +272,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="TanPiPi">
+      <meta itemprop="name" content="小Vcoding">
     </span>
 
     
@@ -585,7 +573,7 @@
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/archives/">
+                <a href="/archives">
               
                   <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">日志</span>
