@@ -86,10 +86,7 @@
 <meta property="og:description" content="​    深度学习在目标检测(Object Detection)中的应用，总结一些常见网络和方法。 ​    本文主要总结介绍R-CNN、Fast R-CNN、Faster R-CNN、YOLO、SSD。 目标检测常见算法​    在目标检测领域的深度学习主要分为两种，one stage 和 two stage。在之前还有以R-CNN为代表的multi-stage，但是由于检测精度和速度问题，已经">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/007BZfbEly1g0hh6qktu9j30af0jqdh4.jpg">
-<meta property="og:image" content="https://ws1.sinaimg.cn/large/007BZfbEly1g0hhvtnr8nj30hs0bs0u0.jpg">
-<meta property="og:image" content="https://ws1.sinaimg.cn/large/007BZfbEly1g0hig4y8a7j30hw0bbjs1.jpg">
-<meta property="og:image" content="https://ws1.sinaimg.cn/large/007BZfbEly1g0hil5p7hcj30hs06sdgf.jpg">
-<meta property="og:updated_time" content="2019-02-25T04:47:59.866Z">
+<meta property="og:updated_time" content="2020-03-22T09:48:44.159Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="目标检测算法">
 <meta name="twitter:description" content="​    深度学习在目标检测(Object Detection)中的应用，总结一些常见网络和方法。 ​    本文主要总结介绍R-CNN、Fast R-CNN、Faster R-CNN、YOLO、SSD。 目标检测常见算法​    在目标检测领域的深度学习主要分为两种，one stage 和 two stage。在之前还有以R-CNN为代表的multi-stage，但是由于检测精度和速度问题，已经">
@@ -441,7 +438,6 @@
 <li>SPP分层将指定区域划分为不同层次。越底层划分的数目越多。SPP通过像金字塔一样的结构来获得感兴趣区域不同尺度的信息。</li>
 <li>借助SPP，不仅实现了对ROI的分类，而且对整张图片也只需要进行一次卷积神经网络的前向计算。</li>
 </ul>
-<p><img src="https://ws1.sinaimg.cn/large/007BZfbEly1g0hhvtnr8nj30hs0bs0u0.jpg" alt=""></p>
 <h2 id="Fast-R-CNN"><a href="#Fast-R-CNN" class="headerlink" title="Fast R-CNN"></a>Fast R-CNN</h2><p>改进：</p>
 <ul>
 <li>ROI提取特征之后，把物体框回归和分类两个任务的loss一起训练，相当于 端到端的多任务训练，训练效率也更高。</li>
@@ -471,14 +467,12 @@
 <li>对于每个网格，我们都预测2个边框（包括每个边框是目标的置信度以及每个边框区域在多个类别上的概率）</li>
 <li>根据上一步可以预测出7<em>7</em>2个目标窗口，然后根据阈值去除可能性比较低的目标窗口，最后NMS去除冗余窗口即可</li>
 </ol>
-<p>​    <img src="https://ws1.sinaimg.cn/large/007BZfbEly1g0hig4y8a7j30hw0bbjs1.jpg" alt=""></p>
 <p>​    但是因为没有了RP机制，所以不能非常精准的定位，这是YOLO的一个缺点。</p>
 <h2 id="SSD-Single-Shot-multibox-Detector"><a href="#SSD-Single-Shot-multibox-Detector" class="headerlink" title="SSD = Single Shot multibox Detector"></a>SSD = Single Shot multibox Detector</h2><p>​    由于在YOLO中，使用整图特征在7*7的粗糙网格内回归对目标的定位并不是很精准。所以SSD结合RP的思想来解决这个问题。 </p>
 <p>​    首先SSD获取目标位置和类别的方法跟YOLO一样，都是使用回归，但是YOLO预测某个位置使用的是全图的特征，SSD预测某个位置使用的是这个位置周围的特征。</p>
-<p><img src="https://ws1.sinaimg.cn/large/007BZfbEly1g0hil5p7hcj30hs06sdgf.jpg" alt=""></p>
 <p>​    使用Faster R-CNN的anchor机制。如SSD的框架图所示，假如某一层特征图(图b)大小是8<em>8，那么就使用3</em>3的滑窗提取每个位置的特征，然后这个特征回归得到目标的坐标信息和类别信息(图c)。</p>
 <p>​    不同于Faster R-CNN，这个anchor是在多个feature map上，这样可以利用多层的特征并且自然的达到多尺度（不同层的feature map 3*3滑窗感受野不同）。</p>
-<p>​    本文写到这里，主要是希望能够让自己更加深入的了解这些算法的思想，由于目前没有时间去阅读相关论文，希望以后能够阅读这些算法的论文。</p>
+<p>希望能够对大家有所帮助。</p>
 
       
     </div>
@@ -605,7 +599,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
